@@ -23,19 +23,6 @@ export default function Contacts() {
         </div>
       ) : (
         <div className="contact-list">
-          {Array.from({ length: 50 }).map((_, index) => (
-            <div className="contact-card" key={index}>
-              <img
-                src={contacts[index % contacts.length].image}
-                alt={contacts[index % contacts.length].name}
-              />
-              <Link to={`/contact/${contacts[index % contacts.length].id}`}>
-                <h2>{contacts[index % contacts.length].name}</h2>
-              </Link>
-              <p>{contacts[index % contacts.length].title}</p>
-            </div>
-          ))}
-
           {contacts.map((contact) => (
             <div className="contact-card" key={contact.id}>
               <img src={contact.image} alt={contact.name} />
