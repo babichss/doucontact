@@ -5,6 +5,7 @@ import PhotoView from "../components/PhotoView";
 import type { Contact } from "../types";
 import { saveContact } from "../utils/storage";
 import ContactView from "../components/ContactView";
+import { useTranslation } from "react-i18next";
 
 export default function AddContact() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function AddContact() {
   const videoRef = useRef<HTMLVideoElement>(
     null
   ) as React.RefObject<HTMLVideoElement>;
+  const { t } = useTranslation();
 
   const handleScan = (contact: Contact) => {
     setScannedContact(contact);
@@ -47,12 +49,12 @@ export default function AddContact() {
   return (
     <>
       <div className="container">
-        <h2>Додати контакт</h2>
+        <h2>{t("Add Contact")}</h2>
         {!scannedContact && (
           <>
             <QRScanner onScan={handleScan} />
             <p>
-              <i>Відскануйте QR код</i>
+              <i>{t("Scan QR code")}</i>
             </p>
           </>
         )}
@@ -70,7 +72,7 @@ export default function AddContact() {
           onClick={handleSnapButton}
           className="button big-button full-width"
         >
-          Зробити фото та зберегти
+          {t("Take photo and save")}
         </button>
       )}
     </>
