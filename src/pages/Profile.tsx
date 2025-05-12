@@ -2,8 +2,10 @@ import QRCode from "qrcode";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { Contact } from "../types";
+import { useTranslation } from "react-i18next";
 
 export default function Profile() {
+  const { t } = useTranslation();
   const [profile] = useState<Contact | null>(() => {
     const p = localStorage.getItem("myProfile");
     return p ? JSON.parse(p) : null;
@@ -25,10 +27,10 @@ export default function Profile() {
   if (!profile) {
     return (
       <>
-        <h1>Welcome!</h1>
-        <p>You haven't created your profile yet.</p>
+        <h1>{t("Welcome!")}</h1>
+        <p>{t("You haven't created your profile yet.")}</p>
         <Link to="/edit" className="btn">
-          Create Profile
+          {t("Create Profile")}
         </Link>
       </>
     );
@@ -53,14 +55,14 @@ export default function Profile() {
         {qrCode ? (
           <>
             <img src={qrCode} alt="QR Code" className="qr-code" />
-            <p>Відскануйте цей QR код, щоб додати контакт</p>
+            <p>{t("Scan this QR code to add contact")}</p>
           </>
         ) : (
-          <p>Generating QR Code...</p>
+          <p>{t("Generating QR Code...")}</p>
         )}
       </div>
       <Link to="/add-contact" className="button fab">
-        Додати контакт
+        {t("Add Contact")}
       </Link>
     </>
   );

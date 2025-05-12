@@ -9,25 +9,27 @@ import ContactPage from "./pages/ContactPage";
 import Contacts from "./pages/Contacts";
 import EditProfile from "./pages/EditProfile";
 import Profile from "./pages/Profile";
+import { useTranslation } from "react-i18next";
 
 function App() {
+  const { t } = useTranslation();
   return (
     <Router>
       <header>
-        <h1>DOU Контакт</h1>
+        <h1>{t("DOU Contact")}</h1>
 
         <nav>
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? "active" : "")}
           >
-            Мій профіль
+            {t("My Profile")}
           </NavLink>
           <NavLink
             to="/contacts"
             className={({ isActive }) => (isActive ? "active" : "")}
           >
-            Контакти
+            {t("Contacts")}
           </NavLink>
         </nav>
       </header>

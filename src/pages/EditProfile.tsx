@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import type { MyProfile } from "../types";
 import { getMyProfile, saveMyProfile } from "../utils/storage";
 import { slugifyName } from "../utils/storage";
+import { useTranslation } from "react-i18next";
 
 function useEditProfileState() {
   const navigate = useNavigate();
@@ -43,15 +44,16 @@ function useEditProfileState() {
 }
 
 export default function EditProfile() {
+  const { t } = useTranslation();
   const { profile, handleSubmit, handleLinkChange, setProfile } =
     useEditProfileState();
 
   return (
     <div className="container">
-      <h1>Edit Profile</h1>
+      <h1>{t("Edit Profile")}</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-field">
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">{t("Name")}</label>
           <input
             type="text"
             id="name"
@@ -64,7 +66,7 @@ export default function EditProfile() {
         </div>
 
         <div className="form-field">
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">{t("Title")}</label>
           <textarea
             id="title"
             value={profile.title}
@@ -76,7 +78,7 @@ export default function EditProfile() {
         </div>
 
         <div className="form-field">
-          <label>Links (up to 3)</label>
+          <label>{t("Links (up to 3)")}</label>
           {profile.links.map((link, index) => (
             <input
               key={index}
@@ -90,7 +92,7 @@ export default function EditProfile() {
         </div>
 
         <button type="submit" className="btn">
-          Save Profile
+          {t("Save Profile")}
         </button>
       </form>
     </div>

@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { Contact } from "../types";
 import { getSavedContacts } from "../utils/storage";
+import { useTranslation } from "react-i18next";
 
 export default function Contacts() {
+  const { t } = useTranslation();
   const [contacts, setContacts] = useState<Contact[]>([]);
 
   useEffect(() => {
@@ -12,12 +14,12 @@ export default function Contacts() {
 
   return (
     <>
-      <h2>Збережені контакти</h2>
+      <h2>{t("Saved Contacts")}</h2>
 
       {contacts.length === 0 ? (
         <div className="card">
-          <p>Поки що немає збережених контактів</p>
-          <Link to="/add-contact">Додати контакт</Link>
+          <p>{t("No saved contacts yet")}</p>
+          <Link to="/add-contact">{t("Add Contact")}</Link>
         </div>
       ) : (
         <div className="contact-list">
@@ -47,7 +49,7 @@ export default function Contacts() {
         </div>
       )}
       <Link to="/add-contact" className="button fab">
-        Додати контакт
+        {t("Add Contact")}
       </Link>
     </>
   );
