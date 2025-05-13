@@ -25,7 +25,7 @@ export default function AddContact() {
     if (contactParam) {
       try {
         const decoded = decodeURIComponent(base64Decode(contactParam)); // ← це критично
-        const contact: Contact = JSON.parse(decoded);
+        const contact: Contact = JSON.parse(decoded) as Contact;
 
         setScannedContact(contact);
       } catch {
@@ -53,7 +53,7 @@ export default function AddContact() {
     const sy = (video.videoHeight - minDim) / 2;
     context.drawImage(video, sx, sy, minDim, minDim, 0, 0, 120, 120);
     const dataUrl = canvas.toDataURL("image/png");
-    handleSnap(dataUrl);
+    void handleSnap(dataUrl);
   };
 
   const handleSnap = (dataUrl: string) => {
@@ -63,37 +63,33 @@ export default function AddContact() {
         image: dataUrl || scannedContact.image,
       };
       saveContact(contactToSave);
-      navigate("/contacts?from=add");
+      void navigate("/contacts?from=add");
     }
   };
 
   return (
-    <>
-      <div className="content">
-        <h2>{t("Add Contact")}</h2>
-        {error && <div className="error-message">{error}</div>}
-        {!scannedContact && !error && (
-          <>
-            <QRScanner onScan={handleScan} />
-            <p>
-              <i>{t("Scan QR code")}</i>
-            </p>
-          </>
-        )}
-        {scannedContact && !error && (
-          <>
-            <PhotoView
-              videoRef={videoRef as React.RefObject<HTMLVideoElement>}
-            />
-            <ContactView contact={scannedContact} />
-          </>
-        )}
-      </div>
+    <div className="stack-md">
+      <h2>{t("Add Contact")}</h2>
+      {error && <div className="error-message">{error}</div>}
+      {!scannedContact && !error && (
+        <>
+          <QRScanner onScan={handleScan} />
+          <p>
+            <i>{t("Scan QR code")}</i>
+          </p>
+        </>
+      )}
+      {scannedContact && !error && (
+        <>
+          <PhotoView videoRef={videoRef} />
+          <ContactView contact={scannedContact} />
+        </>
+      )}
       {scannedContact && !error && (
         <Button onClick={handleSnapButton} size="large" fullWidth>
           {t("Take photo and save")}
         </Button>
       )}
-    </>
+    </div>
   );
 }

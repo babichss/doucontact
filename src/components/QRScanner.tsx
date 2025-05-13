@@ -4,9 +4,9 @@ import type { Contact } from "../types";
 import CameraView from "./CameraView";
 import { base64Decode } from "../utils/storage";
 
-interface QRScannerProps {
+type QRScannerProps = {
   onScan: (contact: Contact) => void;
-}
+};
 
 export default function QRScanner({ onScan }: QRScannerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -46,24 +46,18 @@ export default function QRScanner({ onScan }: QRScannerProps) {
         if (code) {
           try {
             let base64Contact = null;
-            const urlMatch = code.data.match(/[?&]contact=([^&]+)/);
+            const urlMatch = /[?&]contact=([^&]+)/.exec(code.data);
             if (urlMatch) {
               base64Contact = urlMatch[1];
             } else {
               // fallback: treat as raw base64 (legacy QR)
               base64Contact = code.data;
             }
-            const decodedData = JSON.parse(
+            const decodedData: Contact = JSON.parse(
               decodeURIComponent(base64Decode(base64Contact))
-            );
-            const contact: Contact = {
-              id: decodedData.id,
-              name: decodedData.name,
-              title: decodedData.title,
-              image: decodedData.image,
-              links: decodedData.links,
-            };
-            onScan(contact);
+            ) as Contact;
+
+            onScan(decodedData);
           } catch {
             // handle error
           }

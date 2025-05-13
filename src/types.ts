@@ -6,4 +6,3 @@ export type Contact = {
   links: string[];
 }
 
-export type MyProfile = Omit<Contact, 'id'>; 

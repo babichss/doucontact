@@ -3,18 +3,27 @@ import Card from "./Card";
 
 export default function ContactView({ contact }: { contact: Contact }) {
   return (
-    <Card>
+    <Card className="stack-md centered">
       {contact.image ? (
         <img src={contact.image} alt={contact.name} className="avatar" />
       ) : null}
 
-      <h2>{contact.name}</h2>
+      <div className="stack-sm centered">
+        <h4>{contact.name}</h4>
 
-      {contact.title ? <p>{contact.title}</p> : null}
+        {contact.title ? (
+          <p className="contact-title">{contact.title}</p>
+        ) : null}
+      </div>
 
-      <div className="contact-links">
-        {contact.links.filter(Boolean).map((link) => (
-          <a href={link} target="_blank" rel="noopener noreferrer" key={link}>
+      <div className="stack-sm">
+        {contact.links.filter(Boolean).map((link, i) => (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            key={`${i}:$link}`}
+          >
             {link}
           </a>
         ))}

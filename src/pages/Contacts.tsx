@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { Contact } from "../types";
 import { getMyProfile, getSavedContacts } from "../utils/storage";
@@ -25,7 +25,7 @@ export default function Contacts() {
 
   const handleGoToProfile = () => {
     dialogRef.current?.close();
-    navigate("/edit");
+    void navigate("/edit");
   };
 
   const handleCloseDialog = () => {
@@ -33,35 +33,44 @@ export default function Contacts() {
   };
 
   return (
-    <>
-      <section className="content">
-        <h2>{t("Saved Contacts")}</h2>
+    <div className="stack-lg">
+      <h2>{t("Saved Contacts")}</h2>
 
-        {contacts.length === 0 ? (
-          <Card>
-            <p>{t("No saved contacts yet")}</p>
-          </Card>
-        ) : (
-          <div className="contact-list">
-            {contacts.map((contact) => (
+      {contacts.length === 0 ? (
+        <Card>
+          <p>{t("No saved contacts yet")}</p>
+        </Card>
+      ) : (
+        <div className="stack-md contacts-list">
+          {contacts.map((contact, i) => (
+            <Fragment key={contact.id}>
+              {i > 0 && <hr />}
               <Link
                 to={`/contact/${contact.id}`}
                 className="invisible-link"
-                key={contact.id}
                 aria-label={contact.name}
               >
                 <div className="contact-card">
-                  <img src={contact.image} alt={contact.name} />
-                  <h3>{contact.name}</h3>
-                  <p>{contact.title}</p>
+                  <img
+                    src={contact.image}
+                    className="avatar small"
+                    alt={contact.name}
+                  />
+                  <div className="stack-xs">
+                    <h4>{contact.name}</h4>
+                    {contact.title ? (
+                      <p className="contact-title">{contact.title}</p>
+                    ) : null}
+                  </div>
                 </div>
               </Link>
-            ))}
-          </div>
-        )}
-      </section>
+            </Fragment>
+          ))}
+        </div>
+      )}
+
       <dialog ref={dialogRef} className="confirm-dialog">
-        <div className="column">
+        <div className="stack-md">
           <p>{t("Contact saved. Do you want to create your own profile?")}</p>
           <div className="actions">
             <Button onClick={handleCloseDialog} size="medium">
@@ -73,9 +82,9 @@ export default function Contacts() {
           </div>
         </div>
       </dialog>
-      <Button as="a" href="/add-contact" size="large" fullWidth>
+      <Button as="a" href="/add-contact" size="large" className="fab">
         {t("Add Contact")}
       </Button>
-    </>
+    </div>
   );
 }

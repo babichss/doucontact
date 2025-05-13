@@ -12,38 +12,51 @@ import Profile from "./pages/Profile";
 import About from "./pages/About";
 import { useTranslation } from "react-i18next";
 
-function App() {
+function Header() {
   const { t } = useTranslation();
+
+  return (
+    <header>
+      <NavLink to="/" aria-label={t("Home")}>
+        <img src="./logo.png" alt="logo" height={24} />
+      </NavLink>
+      <NavLink to="/about" aria-label={t("About")}>
+        (?)
+      </NavLink>
+    </header>
+  );
+}
+
+function ActiveLink({
+  to,
+  children,
+}: {
+  to: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <NavLink to={to} className={({ isActive }) => (isActive ? "active" : "")}>
+      {children}
+    </NavLink>
+  );
+}
+
+function Nav() {
+  const { t } = useTranslation();
+
+  return (
+    <nav>
+      <ActiveLink to="/">{t("My QR")}</ActiveLink>
+      <ActiveLink to="/contacts">{t("Contacts")}</ActiveLink>
+    </nav>
+  );
+}
+
+function App() {
   return (
     <Router>
-      <header>
-        <div className="header-title">
-          <h1>{t("Keep Contact!")}</h1>
-          <NavLink
-            to="/about"
-            className={({ isActive }) => (isActive ? "active" : "")}
-            aria-label={t("About")}
-            style={{ marginLeft: "auto", fontSize: 24, lineHeight: 1 }}
-          >
-            <img src="/question.svg" alt="About" width={24} height={24} />
-          </NavLink>
-        </div>
-
-        <nav>
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
-            {t("My Profile")}
-          </NavLink>
-          <NavLink
-            to="/contacts"
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
-            {t("Contacts")}
-          </NavLink>
-        </nav>
-      </header>
+      <Header />
+      <Nav />
       <main>
         <Routes>
           <Route path="/" element={<Profile />} />

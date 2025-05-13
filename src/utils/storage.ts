@@ -1,14 +1,14 @@
-import type { Contact, MyProfile } from '../types';
+import type { Contact } from '../types';
 
 const MY_PROFILE_KEY = 'myProfile';
 const SAVED_CONTACTS_KEY = 'savedContacts';
 
-export const getMyProfile = (): MyProfile | null => {
+export const getMyProfile = (): Contact | null => {
   const profile = localStorage.getItem(MY_PROFILE_KEY);
-  return profile ? JSON.parse(profile) as MyProfile : null;
+  return profile ? JSON.parse(profile) as Contact : null;
 };
 
-export const saveMyProfile = (profile: MyProfile): void => {
+export const saveMyProfile = (profile: Contact): void => {
   localStorage.setItem(MY_PROFILE_KEY, JSON.stringify(profile));
 };
 

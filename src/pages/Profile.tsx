@@ -6,11 +6,12 @@ import Button from "../components/Button";
 import Card from "../components/Card";
 import type { Contact } from "../types";
 import { base64Encode } from "../utils/storage";
+import { NavLink } from "react-router-dom";
 export default function Profile() {
   const { t } = useTranslation();
   const [profile] = useState<Contact | null>(() => {
     const p = localStorage.getItem("myProfile");
-    return p ? JSON.parse(p) : null;
+    return p ? (JSON.parse(p) as Contact) : null;
   });
   const [qrCode, setQrCode] = useState<string>("");
 
@@ -24,7 +25,9 @@ export default function Profile() {
         process.env.VITE_PUBLIC_BASE_URL;
       const qrUrl = `${baseUrl}/add-contact?contact=${profileData}`;
 
-      QRCode.toDataURL(qrUrl)
+      QRCode.toDataURL(qrUrl, {
+        margin: 0,
+      })
         .then((url) => {
           setQrCode(url);
         })
@@ -45,25 +48,21 @@ export default function Profile() {
   }
 
   return (
-    <>
-      <section className="content">
-        <Card>
-          {qrCode ? (
-            <>
-              <img src={qrCode} alt="QR Code" className="qr-code" />
-            </>
-          ) : (
-            <p>{t("Generating QR Code...")}</p>
-          )}
-        </Card>
+    <div className="stack-md">
+      <Card className="stack-md centered">
+        {qrCode ? (
+          <>
+            <img src={qrCode} alt="QR Code" className="qr-code" />
+          </>
+        ) : (
+          <p>{t("Generating QR Code...")}</p>
+        )}
+        <NavLink to="/edit">{t("Edit Profile")}</NavLink>
+      </Card>
 
-        <Button as="a" href="/edit">
-          {t("Edit Profile")}
-        </Button>
-      </section>
       <Button as="a" href="/add-contact" size="large" fullWidth>
-        {t("Add Contact")}
+        {t("Scan QR")}
       </Button>
-    </>
+    </div>
   );
 }

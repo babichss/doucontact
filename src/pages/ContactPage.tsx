@@ -46,18 +46,15 @@ export default function ContactPage() {
   }
 
   return (
-    <>
-      <section className="content">
-        <ContactView contact={contact} />
+    <div className="stack-md">
+      <ContactView contact={contact} />
 
-        <footer>
-          <Button onClick={handleDelete} size="large" fullWidth>
-            {t("Delete Contact")}
-          </Button>
-        </footer>
-      </section>
+      <Button onClick={handleDelete} size="large" fullWidth>
+        {t("Delete Contact")}
+      </Button>
+
       <dialog ref={dialogRef} className="confirm-dialog">
-        <div className="column">
+        <div className="stack-md">
           <p>{t("Are you sure you want to delete this contact?")}</p>
           <div className="actions">
             <Button onClick={handleDialogConfirm} size="medium">
@@ -73,6 +70,6 @@ export default function ContactPage() {
           </div>
         </div>
       </dialog>
-    </>
+    </div>
   );
 }

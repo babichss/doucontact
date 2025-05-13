@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import FormField from "../components/FormField";
-import type { MyProfile } from "../types";
+import type { Contact } from "../types";
 import { getMyProfile, hashName, saveMyProfile } from "../utils/storage";
 
 function useEditProfileState() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [profile, setProfile] = useState<MyProfile>({
+  const [profile, setProfile] = useState<Contact>({
+    id: "",
     name: "",
     title: "",
     image: "",
@@ -31,11 +31,10 @@ function useEditProfileState() {
       return;
     }
     setError("");
-    console.log(profile);
     const id = hashName(profile.name);
-    saveMyProfile({ ...profile });
+    saveMyProfile({ ...profile, id });
     localStorage.setItem("myProfile", JSON.stringify({ ...profile, id }));
-    navigate("/");
+    void navigate("/");
   };
 
   const handleLinkChange = (index: number, value: string) => {
@@ -62,10 +61,11 @@ export default function EditProfile() {
     useEditProfileState();
 
   return (
-    <>
-      <h2>{t("Edit Profile")}</h2>
-      <form id="edit-profile" onSubmit={handleSubmit}>
-        <FormField label={t("Name")} htmlFor="name">
+    <div className="stack-md">
+      <h2>{t("My Profile")}</h2>
+      <form id="edit-profile" className="stack-md" onSubmit={handleSubmit}>
+        <div className="stack-xs">
+          <label htmlFor="name">{t("Name")}</label>
           <input
             type="text"
             id="name"
@@ -74,22 +74,25 @@ export default function EditProfile() {
               setProfile((prev) => ({ ...prev, name: e.target.value }))
             }
             required
-            maxLength={100}
+            maxLength={80}
           />
-        </FormField>
+        </div>
 
-        <FormField label={t("Title")} htmlFor="title">
-          <textarea
+        <div className="stack-xs">
+          <label htmlFor="title">{t("Title")}</label>
+          <input
+            type="text"
             id="title"
             value={profile.title}
             onChange={(e) =>
               setProfile((prev) => ({ ...prev, title: e.target.value }))
             }
-            maxLength={200}
+            maxLength={140}
           />
-        </FormField>
+        </div>
 
-        <FormField label={t("Links (up to 3)")}>
+        <div className="stack-xs">
+          <label htmlFor="links">{t("Links (up to 3)")}</label>
           {Array.from({ length: 3 }).map((_, index) => (
             <input
               key={index}
@@ -99,13 +102,13 @@ export default function EditProfile() {
               placeholder={`${t("Link")} ${index + 1}`}
             />
           ))}
-        </FormField>
+        </div>
 
         {error && <div className="error-message">{t(error)}</div>}
+        <Button form="edit-profile" type="submit" size="large" fullWidth>
+          {t("Save Profile")}
+        </Button>
       </form>
-      <Button form="edit-profile" type="submit" size="large" fullWidth>
-        {t("Save Profile")}
-      </Button>
-    </>
+    </div>
   );
 }
