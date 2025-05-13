@@ -1,7 +1,7 @@
 :root {
   --font-family: "Inter", sans-serif;
   --text-color-primary: #111;
-  --text-color-secondary: #666;
+  --text-color-secondary: #777;
   --color-ghost: #ccc;
   --text-size-small: 0.8rem;
   --text-size-medium: 1rem;
@@ -9,7 +9,7 @@
   --text-size-xlarge: 2rem;
 
   --brand-color-primary: #0d021b;
-  --brand-color-secondary: #7626ff;
+  --brand-color-secondary: #865dce;
 
   --surface-color-primary: #fff;
   --surface-color-secondary: #fefefe;

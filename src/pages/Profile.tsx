@@ -1,6 +1,5 @@
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
-// import { Link, NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Button from "../components/Button";
 import Card from "../components/Card";

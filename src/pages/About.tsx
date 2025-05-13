@@ -53,11 +53,13 @@ export default function About() {
             <p>Артем Овчаренко</p>
             <ul className="h-stack-xs">
               <li>
-                <a href="https://t.me/qamania">Telegram</a>
+                <a href="https://t.me/Artem_Ov">Telegram</a>
               </li>
               |
               <li>
-                <a href="https://www.linkedin.com/in/ostapov/">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/4rtem-ovcharenko/">
+                  LinkedIn
+                </a>
               </li>
             </ul>
           </div>
