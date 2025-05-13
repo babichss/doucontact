@@ -50,9 +50,19 @@ export function hashName(name: string): string {
 }
 // Unicode-safe base64 encode/decode
 export function base64Encode(str: string): string {
-  return btoa(unescape(encodeURIComponent(str)));
+  // Encode string to UTF-8 bytes
+  const bytes = new TextEncoder().encode(str);
+  // Convert bytes to binary string
+  const binary = Array.from(bytes, byte => String.fromCharCode(byte)).join('');
+  // Encode binary string to base64
+  return btoa(binary);
 }
 
 export function base64Decode(str: string): string {
-  return decodeURIComponent(escape(atob(str)));
+  // Decode base64 to bytes
+  const binary = atob(str);
+  // Convert bytes to a Uint8Array
+  const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+  // Decode bytes to UTF-8 string
+  return new TextDecoder().decode(bytes);
 } 

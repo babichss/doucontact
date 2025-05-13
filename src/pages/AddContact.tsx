@@ -1,19 +1,18 @@
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import ContactView from "../components/ContactView";
 import PhotoView from "../components/PhotoView";
 import QRScanner from "../components/QRScanner";
 import type { Contact } from "../types";
-import { saveContact, base64Decode, getMyProfile } from "../utils/storage";
+import { base64Decode, saveContact } from "../utils/storage";
 
 export default function AddContact() {
   const navigate = useNavigate();
   const location = useLocation();
   const [scannedContact, setScannedContact] = useState<Contact | null>(null);
   const [error, setError] = useState<string>("");
-  const [showProfileModal, setShowProfileModal] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(
     null
   ) as React.RefObject<HTMLVideoElement>;
@@ -25,23 +24,10 @@ export default function AddContact() {
     const contactParam = params.get("contact");
     if (contactParam) {
       try {
-        const decoded = JSON.parse(base64Decode(contactParam));
-        const contact: Contact = {
-          id: decoded.id,
-          name: decoded.name,
-          title: decoded.title,
-          image: decoded.image,
-          links: decoded.links,
-        };
+        const decoded = decodeURIComponent(base64Decode(contactParam)); // ← це критично
+        const contact: Contact = JSON.parse(decoded);
         saveContact(contact);
         setScannedContact(contact);
-        // If user does not have a profile, show modal
-        if (!getMyProfile()) {
-          setShowProfileModal(true);
-        } else {
-          // If profile exists, redirect to contacts after a short delay
-          setTimeout(() => navigate("/contacts"), 1000);
-        }
       } catch {
         setError(t("Invalid or corrupted contact QR code."));
       }
@@ -77,13 +63,8 @@ export default function AddContact() {
         image: dataUrl || scannedContact.image,
       };
       saveContact(contactToSave);
-      navigate("/contacts");
+      navigate("/contacts?from=add");
     }
-  };
-
-  const handleGoToProfile = () => {
-    setShowProfileModal(false);
-    navigate("/edit");
   };
 
   return (
@@ -112,18 +93,6 @@ export default function AddContact() {
         <Button onClick={handleSnapButton} size="large" fullWidth>
           {t("Take photo and save")}
         </Button>
-      )}
-      {showProfileModal && (
-        <dialog open className="confirm-dialog">
-          <div className="column">
-            <p>{t("Contact saved. Do you want to create your own profile?")}</p>
-            <div className="actions">
-              <Button onClick={handleGoToProfile} size="medium">
-                {t("Go to Profile")}
-              </Button>
-            </div>
-          </div>
-        </dialog>
       )}
     </>
   );

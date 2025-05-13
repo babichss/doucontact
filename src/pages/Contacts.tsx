@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import type { Contact } from "../types";
-import { getSavedContacts } from "../utils/storage";
+import { getMyProfile, getSavedContacts } from "../utils/storage";
 import { useTranslation } from "react-i18next";
 import Button from "../components/Button";
 import Card from "../components/Card";
@@ -9,10 +9,28 @@ import Card from "../components/Card";
 export default function Contacts() {
   const { t } = useTranslation();
   const [contacts, setContacts] = useState<Contact[]>([]);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setContacts(getSavedContacts());
   }, []);
+
+  useEffect(() => {
+    const from = new URLSearchParams(window.location.search).get("from");
+    if (from === "add" && !getMyProfile()) {
+      dialogRef.current?.showModal();
+    }
+  }, []);
+
+  const handleGoToProfile = () => {
+    dialogRef.current?.close();
+    navigate("/edit");
+  };
+
+  const handleCloseDialog = () => {
+    dialogRef.current?.close();
+  };
 
   return (
     <>
@@ -42,6 +60,19 @@ export default function Contacts() {
           </div>
         )}
       </section>
+      <dialog ref={dialogRef} className="confirm-dialog">
+        <div className="column">
+          <p>{t("Contact saved. Do you want to create your own profile?")}</p>
+          <div className="actions">
+            <Button onClick={handleCloseDialog} size="medium">
+              {t("Cancel")}
+            </Button>
+            <Button onClick={handleGoToProfile} size="medium">
+              {t("Go to Profile")}
+            </Button>
+          </div>
+        </div>
+      </dialog>
       <Button as="a" href="/add-contact" size="large" fullWidth>
         {t("Add Contact")}
       </Button>

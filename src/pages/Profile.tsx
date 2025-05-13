@@ -17,9 +17,12 @@ export default function Profile() {
 
   useEffect(() => {
     if (profile) {
-      const profileData = base64Encode(JSON.stringify(profile));
+      const profileData = base64Encode(
+        encodeURIComponent(JSON.stringify(profile))
+      );
       const baseUrl = import.meta.env.VITE_PUBLIC_BASE_URL;
       const qrUrl = `${baseUrl}/add-contact?contact=${profileData}`;
+
       QRCode.toDataURL(qrUrl)
         .then((url) => {
           setQrCode(url);
