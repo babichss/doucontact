@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import type { MyProfile } from "../types";
-import { getMyProfile, saveMyProfile } from "../utils/storage";
-import { slugifyName } from "../utils/storage";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import FormField from "../components/FormField";
+import type { MyProfile } from "../types";
+import { getMyProfile, hashName, saveMyProfile } from "../utils/storage";
 
 function useEditProfileState() {
   const { t } = useTranslation();
@@ -32,7 +31,8 @@ function useEditProfileState() {
       return;
     }
     setError("");
-    const id = slugifyName(profile.name);
+    console.log(profile);
+    const id = hashName(profile.name);
     saveMyProfile({ ...profile });
     localStorage.setItem("myProfile", JSON.stringify({ ...profile, id }));
     navigate("/");

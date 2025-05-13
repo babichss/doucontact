@@ -36,15 +36,18 @@ export const deleteContact = (id: string): void => {
   localStorage.setItem(SAVED_CONTACTS_KEY, JSON.stringify(filteredContacts));
 };
 
-// Slugify a string to create a stable, URL-safe id
-export function slugifyName(name: string): string {
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/(^-|-$)+/g, '');
-}
+export function hashName(name: string): string {
+  const str = `${name.trim().toLowerCase()}-${Date.now()}`;
+  let hash = 2166136261;
 
+  for (let i = 0; i < str.length; i++) {
+    hash ^= str.charCodeAt(i);
+    hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
+  }
+
+  // Convert to unsigned 32-bit hex string
+  return ('0000000' + (hash >>> 0).toString(16)).slice(-8);
+}
 // Unicode-safe base64 encode/decode
 export function base64Encode(str: string): string {
   return btoa(unescape(encodeURIComponent(str)));
