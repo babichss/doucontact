@@ -184,3 +184,9 @@ textarea {
     text-decoration: none;
   }
 }
+
+.small-button {
+  font-size: var(--font-size-small);
+  padding-block: var(--spacing-xs);
+  padding-inline: var(--spacing-xs);
+}
