@@ -17,7 +17,6 @@ export default function Profile() {
   useEffect(() => {
     if (profile) {
       const profileData = base64Encode(JSON.stringify(profile));
-      console.log(profileData);
       const baseUrl =
         import.meta.env.VITE_PUBLIC_BASE_URL ||
         process.env.VITE_PUBLIC_BASE_URL;
