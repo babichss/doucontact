@@ -1,4 +1,5 @@
 import type { Contact } from '../types';
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
 
 const MY_PROFILE_KEY = 'myProfile';
 const SAVED_CONTACTS_KEY = 'savedContacts';
@@ -50,19 +51,12 @@ export function hashName(name: string): string {
 }
 // Unicode-safe base64 encode/decode
 export function base64Encode(str: string): string {
-  // Encode string to UTF-8 bytes
-  const bytes = new TextEncoder().encode(str);
-  // Convert bytes to binary string
-  const binary = Array.from(bytes, byte => String.fromCharCode(byte)).join('');
-  // Encode binary string to base64
-  return btoa(binary);
+  const json = JSON.stringify(str);
+  return compressToEncodedURIComponent(json);
 }
 
 export function base64Decode(str: string): string {
-  // Decode base64 to bytes
-  const binary = atob(str);
-  // Convert bytes to a Uint8Array
-  const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
-  // Decode bytes to UTF-8 string
-  return new TextDecoder().decode(bytes);
+  const json = decompressFromEncodedURIComponent(str);
+  if (!json) throw new Error('Failed to decode contact');
+  return JSON.parse(json) as string;
 } 

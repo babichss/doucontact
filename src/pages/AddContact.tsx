@@ -24,7 +24,7 @@ export default function AddContact() {
     const contactParam = params.get("contact");
     if (contactParam) {
       try {
-        const decoded = decodeURIComponent(base64Decode(contactParam)); // ← це критично
+        const decoded = base64Decode(contactParam);
         const contact: Contact = JSON.parse(decoded) as Contact;
 
         setScannedContact(contact);

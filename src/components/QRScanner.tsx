@@ -54,7 +54,7 @@ export default function QRScanner({ onScan }: QRScannerProps) {
               base64Contact = code.data;
             }
             const decodedData: Contact = JSON.parse(
-              decodeURIComponent(base64Decode(base64Contact))
+              base64Decode(base64Contact)
             ) as Contact;
 
             onScan(decodedData);
