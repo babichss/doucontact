@@ -25,6 +25,8 @@ const resources = {
       'Scan QR code': 'Відскануйте QR код',
       'Take photo and save': 'Зробити фото та зберегти',
       'At least one link is required.': 'Необхідно вказати хоча б одне посилання.',
+      'Yes': 'Так',
+      'Cancel': 'Скасувати',
     },
   },
   en: {
@@ -50,6 +52,8 @@ const resources = {
       'Scan QR code': 'Scan QR code',
       'Take photo and save': 'Take photo and save',
       'At least one link is required.': 'At least one link is required.',
+      'Yes': 'Yes',
+      'Cancel': 'Cancel',
     },
   },
 };
