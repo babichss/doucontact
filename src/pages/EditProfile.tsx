@@ -6,13 +6,15 @@ import { slugifyName } from "../utils/storage";
 import { useTranslation } from "react-i18next";
 
 function useEditProfileState() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [profile, setProfile] = useState<MyProfile>({
     name: "",
     title: "",
     image: "",
-    links: ["", "", ""],
+    links: [],
   });
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const savedProfile = getMyProfile();
@@ -23,6 +25,11 @@ function useEditProfileState() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!profile.links.some((link) => Boolean(link))) {
+      setError(t("At least one link is required."));
+      return;
+    }
+    setError("");
     const id = slugifyName(profile.name);
     saveMyProfile({ ...profile });
     localStorage.setItem("myProfile", JSON.stringify({ ...profile, id }));
@@ -32,7 +39,10 @@ function useEditProfileState() {
   const handleLinkChange = (index: number, value: string) => {
     const newLinks = [...profile.links];
     newLinks[index] = value;
-    setProfile((prev) => ({ ...prev, links: newLinks }));
+    setProfile((prev) => ({
+      ...prev,
+      links: newLinks.filter((link) => Boolean(link)),
+    }));
   };
 
   return {
@@ -40,18 +50,19 @@ function useEditProfileState() {
     handleSubmit,
     handleLinkChange,
     setProfile,
+    error,
   };
 }
 
 export default function EditProfile() {
   const { t } = useTranslation();
-  const { profile, handleSubmit, handleLinkChange, setProfile } =
+  const { profile, handleSubmit, handleLinkChange, setProfile, error } =
     useEditProfileState();
 
   return (
-    <div className="container">
+    <>
       <h1>{t("Edit Profile")}</h1>
-      <form onSubmit={handleSubmit}>
+      <form id="edit-profile" onSubmit={handleSubmit}>
         <div className="form-field">
           <label htmlFor="name">{t("Name")}</label>
           <input
@@ -62,6 +73,7 @@ export default function EditProfile() {
               setProfile((prev) => ({ ...prev, name: e.target.value }))
             }
             required
+            maxLength={100}
           />
         </div>
 
@@ -73,28 +85,32 @@ export default function EditProfile() {
             onChange={(e) =>
               setProfile((prev) => ({ ...prev, title: e.target.value }))
             }
-            maxLength={400}
+            maxLength={200}
           />
         </div>
 
         <div className="form-field">
           <label>{t("Links (up to 3)")}</label>
-          {profile.links.map((link, index) => (
+          {Array.from({ length: 3 }).map((_, index) => (
             <input
               key={index}
               type="url"
-              value={link}
+              value={profile.links[index] || ""}
               onChange={(e) => handleLinkChange(index, e.target.value)}
-              placeholder={`Link ${index + 1}`}
-              style={{ marginBottom: "0.5rem" }}
+              placeholder={`${t("Link")} ${index + 1}`}
             />
           ))}
         </div>
 
-        <button type="submit" className="btn">
-          {t("Save Profile")}
-        </button>
+        {error && <div className="error-message">{t(error)}</div>}
       </form>
-    </div>
+      <button
+        form="edit-profile"
+        type="submit"
+        className="button big-button full-width"
+      >
+        {t("Save Profile")}
+      </button>
+    </>
   );
 }

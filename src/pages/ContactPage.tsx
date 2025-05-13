@@ -36,11 +36,18 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="container">
-      <ContactView contact={contact} />
-      <footer>
-        <button onClick={handleDelete}>{t("Delete Contact")}</button>
-      </footer>
-    </div>
+    <>
+      <section className="content">
+        <ContactView contact={contact} />
+        <footer>
+          <button
+            onClick={handleDelete}
+            className="button big-button full-width"
+          >
+            {t("Delete Contact")}
+          </button>
+        </footer>
+      </section>
+    </>
   );
 }

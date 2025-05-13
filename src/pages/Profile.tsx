@@ -1,6 +1,6 @@
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import type { Contact } from "../types";
 import { useTranslation } from "react-i18next";
 import { base64Encode } from "../utils/storage";
@@ -39,30 +39,40 @@ export default function Profile() {
 
   return (
     <>
-      <div className="card">
-        {profile.image ? (
-          <img src={profile.image} alt={profile.name} className="avatar" />
-        ) : null}
+      <section className="content">
+        <div className="card">
+          {qrCode ? (
+            <>
+              <img src={qrCode} alt="QR Code" className="qr-code" />
+            </>
+          ) : (
+            <p>{t("Generating QR Code...")}</p>
+          )}
+        </div>
+        <div className="card">
+          {profile.image ? (
+            <img src={profile.image} alt={profile.name} className="avatar" />
+          ) : null}
 
-        <h2>{profile.name}</h2>
-        <p>{profile.title}</p>
+          <h2>{profile.name}</h2>
+          <p>{profile.title}</p>
 
-        {profile.links.map((link, index) => (
-          <a key={index} href={link} target="_blank" rel="noopener noreferrer">
-            {link}
-          </a>
-        ))}
-
-        {qrCode ? (
-          <>
-            <img src={qrCode} alt="QR Code" className="qr-code" />
-            <p>{t("Scan this QR code to add contact")}</p>
-          </>
-        ) : (
-          <p>{t("Generating QR Code...")}</p>
-        )}
-      </div>
-      <Link to="/add-contact" className="button fab">
+          {profile.links.map((link, index) => (
+            <a
+              key={index}
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {link}
+            </a>
+          ))}
+          <NavLink to="/edit" className="button">
+            {t("Edit Profile")}
+          </NavLink>
+        </div>
+      </section>
+      <Link to="/add-contact" className="button big-button full-width">
         {t("Add Contact")}
       </Link>
     </>

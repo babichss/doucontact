@@ -3,7 +3,9 @@ import type { Contact } from "../types";
 export default function ContactView({ contact }: { contact: Contact }) {
   return (
     <div className="card">
-      {contact.image ? <img src={contact.image} alt={contact.name} /> : null}
+      {contact.image ? (
+        <img src={contact.image} alt={contact.name} className="avatar" />
+      ) : null}
       <h2>{contact.name}</h2>
       <p>{contact.title}</p>
 

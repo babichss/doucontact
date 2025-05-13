@@ -24,18 +24,18 @@ export default function Contacts() {
       ) : (
         <div className="contact-list">
           {contacts.map((contact) => (
-            <div className="contact-card" key={contact.id}>
-              <img src={contact.image} alt={contact.name} />
+            <Link to={`/contact/${contact.id}`} className="invisible-link">
+              <div className="contact-card" key={contact.id}>
+                <img src={contact.image} alt={contact.name} />
 
-              <Link to={`/contact/${contact.id}`}>
-                <h2>{contact.name}</h2>
-              </Link>
-              <p>{contact.title}</p>
-            </div>
+                <h3>{contact.name}</h3>
+                <p>{contact.title}</p>
+              </div>
+            </Link>
           ))}
         </div>
       )}
-      <Link to="/add-contact" className="button fab">
+      <Link to="/add-contact" className="button big-button full-width">
         {t("Add Contact")}
       </Link>
     </>

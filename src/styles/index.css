@@ -7,6 +7,8 @@
   --font-size-small: calc(var(--font-size-medium) * 0.8);
   --font-size-medium: 16px;
   --font-size-large: calc(var(--font-size-medium) * 1.2);
+  --color-primary: #000;
+  --color-secondary: #fff;
 }
 
 * {
@@ -98,6 +100,14 @@ form {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-medium);
+  flex: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-medium);
+  flex: 1;
 }
 
 :where(input, textarea) {
@@ -112,7 +122,7 @@ input {
 }
 
 textarea {
-  min-height: 10lh;
+  min-height: 6lh;
   font-family: var(--font-family);
 }
 
@@ -136,8 +146,11 @@ textarea {
 .contact-card {
   display: grid;
   grid-template-areas: "img name" "img title";
-  grid-template-columns: 48px 1fr;
+  grid-template-columns: auto 1fr;
   column-gap: var(--spacing-small);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  padding: var(--spacing-small);
+  color: var(--color-primary);
 
   img {
     grid-area: img;
@@ -145,13 +158,14 @@ textarea {
     object-fit: cover;
     border-radius: 50%;
     border: 1px solid #ccc;
-    height: 48px;
-    width: 48px;
+    height: 64px;
+    width: 64px;
     margin-top: var(--spacing-small);
   }
 
-  h2 {
+  h3 {
     grid-area: name;
+    align-self: end;
   }
 
   p {
@@ -159,5 +173,14 @@ textarea {
   }
 }
 
+.avatar {
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
 
-
+.invisible-link {
+  text-decoration: none;
+  * > {
+    text-decoration: none;
+  }
+}

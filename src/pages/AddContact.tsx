@@ -48,7 +48,7 @@ export default function AddContact() {
 
   return (
     <>
-      <div className="container">
+      <div className="content">
         <h2>{t("Add Contact")}</h2>
         {!scannedContact && (
           <>

@@ -24,6 +24,7 @@ const resources = {
       'Are you sure you want to delete this contact?': 'Ви впевнені, що хочете видалити цей контакт?',
       'Scan QR code': 'Відскануйте QR код',
       'Take photo and save': 'Зробити фото та зберегти',
+      'At least one link is required.': 'Необхідно вказати хоча б одне посилання.',
     },
   },
   en: {
@@ -48,6 +49,7 @@ const resources = {
       'Are you sure you want to delete this contact?': 'Are you sure you want to delete this contact?',
       'Scan QR code': 'Scan QR code',
       'Take photo and save': 'Take photo and save',
+      'At least one link is required.': 'At least one link is required.',
     },
   },
 };
