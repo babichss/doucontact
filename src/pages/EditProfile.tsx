@@ -5,6 +5,7 @@ import { getMyProfile, saveMyProfile } from "../utils/storage";
 import { slugifyName } from "../utils/storage";
 import { useTranslation } from "react-i18next";
 import Button from "../components/Button";
+import FormField from "../components/FormField";
 
 function useEditProfileState() {
   const { t } = useTranslation();
@@ -64,8 +65,7 @@ export default function EditProfile() {
     <>
       <h1>{t("Edit Profile")}</h1>
       <form id="edit-profile" onSubmit={handleSubmit}>
-        <div className="form-field">
-          <label htmlFor="name">{t("Name")}</label>
+        <FormField label={t("Name")} htmlFor="name">
           <input
             type="text"
             id="name"
@@ -76,10 +76,9 @@ export default function EditProfile() {
             required
             maxLength={100}
           />
-        </div>
+        </FormField>
 
-        <div className="form-field">
-          <label htmlFor="title">{t("Title")}</label>
+        <FormField label={t("Title")} htmlFor="title">
           <textarea
             id="title"
             value={profile.title}
@@ -88,10 +87,9 @@ export default function EditProfile() {
             }
             maxLength={200}
           />
-        </div>
+        </FormField>
 
-        <div className="form-field">
-          <label>{t("Links (up to 3)")}</label>
+        <FormField label={t("Links (up to 3)")}>
           {Array.from({ length: 3 }).map((_, index) => (
             <input
               key={index}
@@ -101,7 +99,7 @@ export default function EditProfile() {
               placeholder={`${t("Link")} ${index + 1}`}
             />
           ))}
-        </div>
+        </FormField>
 
         {error && <div className="error-message">{t(error)}</div>}
       </form>
