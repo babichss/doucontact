@@ -92,14 +92,12 @@ export default function EditProfile() {
         </div>
 
         <div className="stack-xs">
-          <label htmlFor="links">{t("Links (up to 3)")}</label>
+          <label htmlFor="links">{t("Contacts (up to 3)")}</label>
           {Array.from({ length: 3 }).map((_, index) => (
             <input
               key={index}
-              type="url"
               value={profile.links[index] || ""}
               onChange={(e) => handleLinkChange(index, e.target.value)}
-              placeholder={`${t("Link")} ${index + 1}`}
             />
           ))}
         </div>

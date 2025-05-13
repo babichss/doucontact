@@ -1,10 +1,9 @@
 import { Fragment, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import Button from "../components/Button";
 import type { Contact } from "../types";
 import { getMyProfile, getSavedContacts } from "../utils/storage";
-import { useTranslation } from "react-i18next";
-import Button from "../components/Button";
-import Card from "../components/Card";
 
 export default function Contacts() {
   const { t } = useTranslation();
@@ -71,10 +70,10 @@ export default function Contacts() {
         <div className="stack-md">
           <p>{t("Contact saved. Do you want to create your own profile?")}</p>
           <div className="actions">
-            <Button onClick={handleCloseDialog} size="medium">
+            <NavLink to="/" onClick={handleCloseDialog}>
               {t("Cancel")}
-            </Button>
-            <Button onClick={handleGoToProfile} size="medium">
+            </NavLink>
+            <Button onClick={handleGoToProfile} size="small">
               {t("Go to Profile")}
             </Button>
           </div>
