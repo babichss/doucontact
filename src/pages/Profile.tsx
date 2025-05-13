@@ -1,12 +1,11 @@
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
 // import { Link, NavLink } from "react-router-dom";
-import type { Contact } from "../types";
 import { useTranslation } from "react-i18next";
-import { base64Encode } from "../utils/storage";
 import Button from "../components/Button";
 import Card from "../components/Card";
-
+import type { Contact } from "../types";
+import { base64Encode } from "../utils/storage";
 export default function Profile() {
   const { t } = useTranslation();
   const [profile] = useState<Contact | null>(() => {
@@ -57,28 +56,10 @@ export default function Profile() {
             <p>{t("Generating QR Code...")}</p>
           )}
         </Card>
-        <Card>
-          {profile.image ? (
-            <img src={profile.image} alt={profile.name} className="avatar" />
-          ) : null}
 
-          <h2>{profile.name}</h2>
-          <p>{profile.title}</p>
-
-          {profile.links.map((link, index) => (
-            <a
-              key={index}
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {link}
-            </a>
-          ))}
-          <Button as="a" href="/edit">
-            {t("Edit Profile")}
-          </Button>
-        </Card>
+        <Button as="a" href="/edit">
+          {t("Edit Profile")}
+        </Button>
       </section>
       <Button as="a" href="/add-contact" size="large" fullWidth>
         {t("Add Contact")}

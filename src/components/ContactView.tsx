@@ -12,7 +12,7 @@ export default function ContactView({ contact }: { contact: Contact }) {
 
       {contact.title ? <p>{contact.title}</p> : null}
 
-      <div className="column">
+      <div className="contact-links">
         {contact.links.filter(Boolean).map((link) => (
           <a href={link} target="_blank" rel="noopener noreferrer" key={link}>
             {link}

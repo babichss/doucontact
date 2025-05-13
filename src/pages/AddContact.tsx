@@ -26,7 +26,7 @@ export default function AddContact() {
       try {
         const decoded = decodeURIComponent(base64Decode(contactParam)); // ← це критично
         const contact: Contact = JSON.parse(decoded);
-        saveContact(contact);
+
         setScannedContact(contact);
       } catch {
         setError(t("Invalid or corrupted contact QR code."));
