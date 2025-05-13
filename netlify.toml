@@ -1,0 +1,19 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Uncomment and adjust the following if you need custom redirects or headers
+#[[redirects]]
+#  from = "/api/*"
+#  to = "/.netlify/functions/:splat"
+#  status = 200
+
+#[[headers]]
+#  for = "/static/*"
+#  [headers.values]
+#    Cache-Control = "public, max-age=31536000, immutable" 
