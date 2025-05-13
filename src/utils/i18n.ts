@@ -27,6 +27,10 @@ const resources = {
       'At least one link is required.': 'Необхідно вказати хоча б одне посилання.',
       'Yes': 'Так',
       'Cancel': 'Скасувати',
+      'Invalid or corrupted contact QR code.': 'Недійсний або пошкоджений QR-код контакту.',
+      'Missing contact information in the link.': 'Відсутня інформація про контакт у посиланню.',
+      'Contact saved. Do you want to create your own profile?': 'Контакт збережено. Бажаєте створити власний профіль?',
+      'Go to Profile': 'Перейти до профілю',
     },
   },
   en: {
@@ -54,6 +58,10 @@ const resources = {
       'At least one link is required.': 'At least one link is required.',
       'Yes': 'Yes',
       'Cancel': 'Cancel',
+      'Invalid or corrupted contact QR code.': 'Invalid or corrupted contact QR code.',
+      'Missing contact information in the link.': 'Missing contact information in the link.',
+      'Contact saved. Do you want to create your own profile?': 'Contact saved. Do you want to create your own profile?',
+      'Go to Profile': 'Go to Profile',
     },
   },
 };

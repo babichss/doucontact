@@ -45,7 +45,16 @@ export default function QRScanner({ onScan }: QRScannerProps) {
         });
         if (code) {
           try {
-            const decodedData = JSON.parse(base64Decode(code.data));
+            let base64Contact = null;
+            // Try to extract ?contact=... from a URL
+            const urlMatch = code.data.match(/[?&]contact=([^&]+)/);
+            if (urlMatch) {
+              base64Contact = urlMatch[1];
+            } else {
+              // fallback: treat as raw base64 (legacy QR)
+              base64Contact = code.data;
+            }
+            const decodedData = JSON.parse(base64Decode(base64Contact));
             const contact: Contact = {
               id: decodedData.id,
               name: decodedData.name,
