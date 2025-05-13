@@ -4,6 +4,7 @@ import type { MyProfile } from "../types";
 import { getMyProfile, saveMyProfile } from "../utils/storage";
 import { slugifyName } from "../utils/storage";
 import { useTranslation } from "react-i18next";
+import Button from "../components/Button";
 
 function useEditProfileState() {
   const { t } = useTranslation();
@@ -104,13 +105,9 @@ export default function EditProfile() {
 
         {error && <div className="error-message">{t(error)}</div>}
       </form>
-      <button
-        form="edit-profile"
-        type="submit"
-        className="button big-button full-width"
-      >
+      <Button form="edit-profile" type="submit" size="large" fullWidth>
         {t("Save Profile")}
-      </button>
+      </Button>
     </>
   );
 }

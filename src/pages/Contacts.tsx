@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import type { Contact } from "../types";
 import { getSavedContacts } from "../utils/storage";
 import { useTranslation } from "react-i18next";
+import Button from "../components/Button";
 
 export default function Contacts() {
   const { t } = useTranslation();
@@ -19,15 +20,21 @@ export default function Contacts() {
       {contacts.length === 0 ? (
         <div className="card">
           <p>{t("No saved contacts yet")}</p>
-          <Link to="/add-contact">{t("Add Contact")}</Link>
+          <Button as="a" href="/add-contact">
+            {t("Add Contact")}
+          </Button>
         </div>
       ) : (
         <div className="contact-list">
           {contacts.map((contact) => (
-            <Link to={`/contact/${contact.id}`} className="invisible-link">
-              <div className="contact-card" key={contact.id}>
+            <Link
+              to={`/contact/${contact.id}`}
+              className="invisible-link"
+              key={contact.id}
+              aria-label={contact.name}
+            >
+              <div className="contact-card">
                 <img src={contact.image} alt={contact.name} />
-
                 <h3>{contact.name}</h3>
                 <p>{contact.title}</p>
               </div>
@@ -35,9 +42,9 @@ export default function Contacts() {
           ))}
         </div>
       )}
-      <Link to="/add-contact" className="button big-button full-width">
+      <Button as="a" href="/add-contact" size="large" fullWidth>
         {t("Add Contact")}
-      </Link>
+      </Button>
     </>
   );
 }

@@ -1,9 +1,10 @@
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+// import { Link, NavLink } from "react-router-dom";
 import type { Contact } from "../types";
 import { useTranslation } from "react-i18next";
 import { base64Encode } from "../utils/storage";
+import Button from "../components/Button";
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -30,9 +31,9 @@ export default function Profile() {
       <>
         <h1>{t("Welcome!")}</h1>
         <p>{t("You haven't created your profile yet.")}</p>
-        <Link to="/edit" className="btn">
+        <Button as="a" href="/edit">
           {t("Create Profile")}
-        </Link>
+        </Button>
       </>
     );
   }
@@ -67,14 +68,14 @@ export default function Profile() {
               {link}
             </a>
           ))}
-          <NavLink to="/edit" className="button">
+          <Button as="a" href="/edit">
             {t("Edit Profile")}
-          </NavLink>
+          </Button>
         </div>
       </section>
-      <Link to="/add-contact" className="button big-button full-width">
+      <Button as="a" href="/add-contact" size="large" fullWidth>
         {t("Add Contact")}
-      </Link>
+      </Button>
     </>
   );
 }

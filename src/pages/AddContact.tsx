@@ -6,6 +6,7 @@ import type { Contact } from "../types";
 import { saveContact } from "../utils/storage";
 import ContactView from "../components/ContactView";
 import { useTranslation } from "react-i18next";
+import Button from "../components/Button";
 
 export default function AddContact() {
   const navigate = useNavigate();
@@ -68,12 +69,9 @@ export default function AddContact() {
         )}
       </div>
       {scannedContact && (
-        <button
-          onClick={handleSnapButton}
-          className="button big-button full-width"
-        >
+        <Button onClick={handleSnapButton} size="large" fullWidth>
           {t("Take photo and save")}
-        </button>
+        </Button>
       )}
     </>
   );
