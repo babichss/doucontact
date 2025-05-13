@@ -16,33 +16,32 @@ export default function Contacts() {
 
   return (
     <>
-      <h2>{t("Saved Contacts")}</h2>
+      <section className="content">
+        <h2>{t("Saved Contacts")}</h2>
 
-      {contacts.length === 0 ? (
-        <Card>
-          <p>{t("No saved contacts yet")}</p>
-          <Button as="a" href="/add-contact">
-            {t("Add Contact")}
-          </Button>
-        </Card>
-      ) : (
-        <div className="contact-list">
-          {contacts.map((contact) => (
-            <Link
-              to={`/contact/${contact.id}`}
-              className="invisible-link"
-              key={contact.id}
-              aria-label={contact.name}
-            >
-              <div className="contact-card">
-                <img src={contact.image} alt={contact.name} />
-                <h3>{contact.name}</h3>
-                <p>{contact.title}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
+        {contacts.length === 0 ? (
+          <Card>
+            <p>{t("No saved contacts yet")}</p>
+          </Card>
+        ) : (
+          <div className="contact-list">
+            {contacts.map((contact) => (
+              <Link
+                to={`/contact/${contact.id}`}
+                className="invisible-link"
+                key={contact.id}
+                aria-label={contact.name}
+              >
+                <div className="contact-card">
+                  <img src={contact.image} alt={contact.name} />
+                  <h3>{contact.name}</h3>
+                  <p>{contact.title}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </section>
       <Button as="a" href="/add-contact" size="large" fullWidth>
         {t("Add Contact")}
       </Button>

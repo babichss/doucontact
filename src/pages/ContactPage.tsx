@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
+import Button from "../components/Button";
+import ContactView from "../components/ContactView";
 import type { Contact } from "../types";
 import { deleteContact, getSavedContacts } from "../utils/storage";
-import ContactView from "../components/ContactView";
-import { useTranslation } from "react-i18next";
-import Button from "../components/Button";
-import Card from "../components/Card";
 
 export default function ContactPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [contact, setContact] = useState<Contact | null>(null);
   const { t } = useTranslation();
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     const contacts = getSavedContacts();
@@ -24,14 +24,22 @@ export default function ContactPage() {
   }, [id, navigate]);
 
   const handleDelete = () => {
-    if (
-      contact &&
-      window.confirm(t("Are you sure you want to delete this contact?"))
-    ) {
+    dialogRef.current?.showModal();
+  };
+
+  const handleDialogClose = () => {
+    dialogRef.current?.close();
+  };
+
+  const handleDialogConfirm = () => {
+    if (contact) {
       deleteContact(contact.id);
       navigate("/contacts");
     }
+    dialogRef.current?.close();
   };
+
+  useEffect(() => () => dialogRef.current?.close(), []);
 
   if (!contact) {
     return null;
@@ -40,15 +48,31 @@ export default function ContactPage() {
   return (
     <>
       <section className="content">
-        <Card>
-          <ContactView contact={contact} />
-        </Card>
+        <ContactView contact={contact} />
+
         <footer>
           <Button onClick={handleDelete} size="large" fullWidth>
             {t("Delete Contact")}
           </Button>
         </footer>
       </section>
+      <dialog ref={dialogRef} className="confirm-dialog">
+        <div className="content">
+          <p>{t("Are you sure you want to delete this contact?")}</p>
+          <div className="actions">
+            <Button onClick={handleDialogConfirm} size="medium">
+              {t("Yes")}
+            </Button>
+            <Button
+              onClick={handleDialogClose}
+              size="medium"
+              className="secondary"
+            >
+              {t("Cancel")}
+            </Button>
+          </div>
+        </div>
+      </dialog>
     </>
   );
 }

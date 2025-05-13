@@ -1,13 +1,12 @@
-import { useState, useRef } from "react";
+import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import QRScanner from "../components/QRScanner";
+import Button from "../components/Button";
+import ContactView from "../components/ContactView";
 import PhotoView from "../components/PhotoView";
+import QRScanner from "../components/QRScanner";
 import type { Contact } from "../types";
 import { saveContact } from "../utils/storage";
-import ContactView from "../components/ContactView";
-import { useTranslation } from "react-i18next";
-import Button from "../components/Button";
-import Card from "../components/Card";
 
 export default function AddContact() {
   const navigate = useNavigate();
@@ -65,9 +64,8 @@ export default function AddContact() {
             <PhotoView
               videoRef={videoRef as React.RefObject<HTMLVideoElement>}
             />
-            <Card>
-              <ContactView contact={scannedContact} />
-            </Card>
+
+            <ContactView contact={scannedContact} />
           </>
         )}
       </div>

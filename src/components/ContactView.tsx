@@ -11,7 +11,7 @@ export default function ContactView({ contact }: { contact: Contact }) {
       <p>{contact.title}</p>
 
       <div className="contact-links">
-        {contact.links.map((link) => (
+        {contact.links.filter(Boolean).map((link) => (
           <a href={link} target="_blank" rel="noopener noreferrer" key={link}>
             {link}
           </a>

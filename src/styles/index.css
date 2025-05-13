@@ -108,6 +108,7 @@ form {
   flex-direction: column;
   gap: var(--spacing-medium);
   flex: 1;
+  height: 0;
 }
 
 :where(input, textarea) {
@@ -141,10 +142,12 @@ textarea {
   background: var(--color-secondary);
   border: 1px solid #eee;
 }
+
 .contact-list {
   flex: 1;
   overflow-y: auto;
 }
+
 .contact-card {
   display: grid;
   grid-template-areas: "img name" "img title";
@@ -191,4 +194,20 @@ textarea {
   font-size: var(--font-size-small);
   padding-block: var(--spacing-xs);
   padding-inline: var(--spacing-xs);
+}
+
+dialog {
+  border: none;
+  padding: var(--spacing-large);
+  border-radius: 16px;
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.08);
+  align-self: center;
+  justify-self: center;
+  
+
+  .actions {
+    display: flex;
+    gap: var(--spacing-small);
+    justify-content: end;
+  }
 }
