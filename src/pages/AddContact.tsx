@@ -7,6 +7,7 @@ import { saveContact } from "../utils/storage";
 import ContactView from "../components/ContactView";
 import { useTranslation } from "react-i18next";
 import Button from "../components/Button";
+import Card from "../components/Card";
 
 export default function AddContact() {
   const navigate = useNavigate();
@@ -64,7 +65,9 @@ export default function AddContact() {
             <PhotoView
               videoRef={videoRef as React.RefObject<HTMLVideoElement>}
             />
-            <ContactView contact={scannedContact} />
+            <Card>
+              <ContactView contact={scannedContact} />
+            </Card>
           </>
         )}
       </div>

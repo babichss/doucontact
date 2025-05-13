@@ -5,6 +5,7 @@ import { deleteContact, getSavedContacts } from "../utils/storage";
 import ContactView from "../components/ContactView";
 import { useTranslation } from "react-i18next";
 import Button from "../components/Button";
+import Card from "../components/Card";
 
 export default function ContactPage() {
   const { id } = useParams<{ id: string }>();
@@ -39,7 +40,9 @@ export default function ContactPage() {
   return (
     <>
       <section className="content">
-        <ContactView contact={contact} />
+        <Card>
+          <ContactView contact={contact} />
+        </Card>
         <footer>
           <Button onClick={handleDelete} size="large" fullWidth>
             {t("Delete Contact")}

@@ -1,8 +1,9 @@
 import type { Contact } from "../types";
+import Card from "./Card";
 
 export default function ContactView({ contact }: { contact: Contact }) {
   return (
-    <div className="card">
+    <Card>
       {contact.image ? (
         <img src={contact.image} alt={contact.name} className="avatar" />
       ) : null}
@@ -16,6 +17,6 @@ export default function ContactView({ contact }: { contact: Contact }) {
           </a>
         ))}
       </div>
-    </div>
+    </Card>
   );
 }

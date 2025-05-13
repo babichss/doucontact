@@ -4,6 +4,7 @@ import type { Contact } from "../types";
 import { getSavedContacts } from "../utils/storage";
 import { useTranslation } from "react-i18next";
 import Button from "../components/Button";
+import Card from "../components/Card";
 
 export default function Contacts() {
   const { t } = useTranslation();
@@ -18,12 +19,12 @@ export default function Contacts() {
       <h2>{t("Saved Contacts")}</h2>
 
       {contacts.length === 0 ? (
-        <div className="card">
+        <Card>
           <p>{t("No saved contacts yet")}</p>
           <Button as="a" href="/add-contact">
             {t("Add Contact")}
           </Button>
-        </div>
+        </Card>
       ) : (
         <div className="contact-list">
           {contacts.map((contact) => (

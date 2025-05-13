@@ -5,6 +5,7 @@ import type { Contact } from "../types";
 import { useTranslation } from "react-i18next";
 import { base64Encode } from "../utils/storage";
 import Button from "../components/Button";
+import Card from "../components/Card";
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ export default function Profile() {
   return (
     <>
       <section className="content">
-        <div className="card">
+        <Card>
           {qrCode ? (
             <>
               <img src={qrCode} alt="QR Code" className="qr-code" />
@@ -49,8 +50,8 @@ export default function Profile() {
           ) : (
             <p>{t("Generating QR Code...")}</p>
           )}
-        </div>
-        <div className="card">
+        </Card>
+        <Card>
           {profile.image ? (
             <img src={profile.image} alt={profile.name} className="avatar" />
           ) : null}
@@ -71,7 +72,7 @@ export default function Profile() {
           <Button as="a" href="/edit">
             {t("Edit Profile")}
           </Button>
-        </div>
+        </Card>
       </section>
       <Button as="a" href="/add-contact" size="large" fullWidth>
         {t("Add Contact")}
