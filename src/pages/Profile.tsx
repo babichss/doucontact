@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { Contact } from "../types";
 import { useTranslation } from "react-i18next";
+import { base64Encode } from "../utils/storage";
 
 export default function Profile() {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (profile) {
-      const profileData = btoa(JSON.stringify(profile));
+      const profileData = base64Encode(JSON.stringify(profile));
 
       QRCode.toDataURL(profileData)
         .then((url) => {
