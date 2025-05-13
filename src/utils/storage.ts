@@ -5,7 +5,7 @@ const SAVED_CONTACTS_KEY = 'savedContacts';
 
 export const getMyProfile = (): MyProfile | null => {
   const profile = localStorage.getItem(MY_PROFILE_KEY);
-  return profile ? JSON.parse(profile) : null;
+  return profile ? JSON.parse(profile) as MyProfile : null;
 };
 
 export const saveMyProfile = (profile: MyProfile): void => {
@@ -14,7 +14,7 @@ export const saveMyProfile = (profile: MyProfile): void => {
 
 export const getSavedContacts = (): Contact[] => {
   const contacts = localStorage.getItem(SAVED_CONTACTS_KEY);
-  return contacts ? JSON.parse(contacts) : [];
+  return contacts ? JSON.parse(contacts) as Contact[] : [];
 };
 
 export const saveContact = (contact: Contact): void => {

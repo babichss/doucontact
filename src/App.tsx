@@ -17,7 +17,17 @@ function App() {
   return (
     <Router>
       <header>
-        <h1>{t("Keep Contact!")}</h1>
+        <div className="header-title">
+          <h1>{t("Keep Contact!")}</h1>
+          <NavLink
+            to="/about"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            aria-label={t("About")}
+            style={{ marginLeft: "auto", fontSize: 24, lineHeight: 1 }}
+          >
+            <img src="/question.svg" alt="About" width={24} height={24} />
+          </NavLink>
+        </div>
 
         <nav>
           <NavLink
@@ -31,16 +41,6 @@ function App() {
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             {t("Contacts")}
-          </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) => (isActive ? "active" : "")}
-            aria-label={t("About")}
-            style={{ marginLeft: "auto", fontSize: 24, lineHeight: 1 }}
-          >
-            <span role="img" aria-label={t("About")}>
-              ❓
-            </span>
           </NavLink>
         </nav>
       </header>

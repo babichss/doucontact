@@ -31,8 +31,8 @@ const resources = {
       'Missing contact information in the link.': 'Відсутня інформація про контакт у посиланню.',
       'Contact saved. Do you want to create your own profile?': 'Контакт збережено. Бажаєте заповнити свої дані?',
       'Go to Profile': 'Перейти до моїх даних',
-      'About': 'Про додаток',
-      'This app helps you keep and share contact information easily using QR codes.': 'Цей додаток допомагає легко зберігати та ділитися контактною інформацією за допомогою QR-кодів.',
+      'About': 'Про застосунок',
+      'This app helps you keep and share contact information easily using QR codes.': 'Цей застосунок допомагає легко зберігати та ділитися контактною інформацією за допомогою QR-кодів.',
       'Developed with ❤️ for quick networking.': 'Розроблено з ❤️ для швидкого нетворкінгу.',
     },
   },
@@ -72,7 +72,7 @@ const resources = {
   },
 };
 
-i18n
+await i18n
   .use(initReactI18next)
   .init({
     resources,
