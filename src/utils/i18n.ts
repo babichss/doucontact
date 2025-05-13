@@ -31,6 +31,9 @@ const resources = {
       'Missing contact information in the link.': 'Відсутня інформація про контакт у посиланню.',
       'Contact saved. Do you want to create your own profile?': 'Контакт збережено. Бажаєте заповнити свої дані?',
       'Go to Profile': 'Перейти до моїх даних',
+      'About': 'Про додаток',
+      'This app helps you keep and share contact information easily using QR codes.': 'Цей додаток допомагає легко зберігати та ділитися контактною інформацією за допомогою QR-кодів.',
+      'Developed with ❤️ for quick networking.': 'Розроблено з ❤️ для швидкого нетворкінгу.',
     },
   },
   en: {
@@ -62,6 +65,9 @@ const resources = {
       'Missing contact information in the link.': 'Missing contact information in the link.',
       'Contact saved. Do you want to create your own profile?': 'Contact saved. Do you want to create your own profile?',
       'Go to Profile': 'Go to Profile',
+      'About': 'About',
+      'This app helps you keep and share contact information easily using QR codes.': 'This app helps you keep and share contact information easily using QR codes.',
+      'Developed with ❤️ for quick networking.': 'Developed with ❤️ for quick networking.',
     },
   },
 };
