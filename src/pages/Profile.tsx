@@ -36,13 +36,13 @@ export default function Profile() {
 
   if (!profile) {
     return (
-      <>
-        <h1>{t("Welcome!")}</h1>
+      <div className="stack-md centered">
+        <h2>{t("Welcome!")}</h2>
         <p>{t("You haven't created your profile yet.")}</p>
         <Button as="a" href="/edit">
           {t("Create Profile")}
         </Button>
-      </>
+      </div>
     );
   }
 

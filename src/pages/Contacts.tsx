@@ -37,9 +37,7 @@ export default function Contacts() {
       <h2>{t("Saved Contacts")}</h2>
 
       {contacts.length === 0 ? (
-        <Card>
-          <p>{t("No saved contacts yet")}</p>
-        </Card>
+        <p>{t("No saved contacts yet")}</p>
       ) : (
         <div className="stack-md contacts-list">
           {contacts.map((contact, i) => (
