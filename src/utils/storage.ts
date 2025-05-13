@@ -43,4 +43,13 @@ export function slugifyName(name: string): string {
     .trim()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)+/g, '');
+}
+
+// Unicode-safe base64 encode/decode
+export function base64Encode(str: string): string {
+  return btoa(unescape(encodeURIComponent(str)));
+}
+
+export function base64Decode(str: string): string {
+  return decodeURIComponent(escape(atob(str)));
 } 
