@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import jsQR from "jsqr";
 import type { Contact } from "../types";
 import CameraView from "./CameraView";
+import { base64Decode } from "../utils/storage";
 
 interface QRScannerProps {
   onScan: (contact: Contact) => void;
@@ -44,7 +45,7 @@ export default function QRScanner({ onScan }: QRScannerProps) {
         });
         if (code) {
           try {
-            const decodedData = JSON.parse(atob(code.data));
+            const decodedData = JSON.parse(base64Decode(code.data));
             const contact: Contact = {
               id: decodedData.id,
               name: decodedData.name,
