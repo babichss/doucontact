@@ -20,7 +20,9 @@ export default function Profile() {
       const profileData = base64Encode(
         encodeURIComponent(JSON.stringify(profile))
       );
-      const baseUrl = import.meta.env.VITE_PUBLIC_BASE_URL;
+      const baseUrl =
+        import.meta.env.VITE_PUBLIC_BASE_URL ||
+        process.env.VITE_PUBLIC_BASE_URL;
       const qrUrl = `${baseUrl}/add-contact?contact=${profileData}`;
 
       QRCode.toDataURL(qrUrl)
