@@ -16,7 +16,7 @@ function App() {
   return (
     <Router>
       <header>
-        <h1>{t("DOU Contact")}</h1>
+        <h1>{t("Keep Contact!")}</h1>
 
         <nav>
           <NavLink

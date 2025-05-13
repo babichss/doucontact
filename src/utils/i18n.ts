@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   ua: {
     translation: {
-      'DOU Contact': 'DOU Контакт',
+      'Keep Contact!': 'Тримай контакт!',
       'My Profile': 'Мій профіль',
       'Contacts': 'Контакти',
       'Saved Contacts': 'Збережені контакти',
@@ -31,7 +31,7 @@ const resources = {
   },
   en: {
     translation: {
-      'DOU Contact': 'DOU Contact',
+      'Keep Contact!': 'Keep Contact!',
       'My Profile': 'My Profile',
       'Contacts': 'Contacts',
       'Saved Contacts': 'Saved Contacts',

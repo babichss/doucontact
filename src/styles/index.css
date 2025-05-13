@@ -89,6 +89,18 @@ button {
   width: 100%;
 }
 
+header {
+
+  h1 {
+    font-weight: 600;
+    padding-bottom: var(--spacing-small);
+    border-bottom: 1px solid #ccc;
+  }
+
+  nav {
+    padding-block: var(--spacing-small);
+  }
+}
 
 .form-field {
   display: flex;
@@ -109,6 +121,13 @@ form {
   gap: var(--spacing-medium);
   flex: 1;
   height: 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-medium);
+  flex: 1;
 }
 
 :where(input, textarea) {

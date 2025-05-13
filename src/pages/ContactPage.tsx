@@ -57,7 +57,7 @@ export default function ContactPage() {
         </footer>
       </section>
       <dialog ref={dialogRef} className="confirm-dialog">
-        <div className="content">
+        <div className="column">
           <p>{t("Are you sure you want to delete this contact?")}</p>
           <div className="actions">
             <Button onClick={handleDialogConfirm} size="medium">

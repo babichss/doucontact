@@ -63,7 +63,7 @@ export default function EditProfile() {
 
   return (
     <>
-      <h1>{t("Edit Profile")}</h1>
+      <h2>{t("Edit Profile")}</h2>
       <form id="edit-profile" onSubmit={handleSubmit}>
         <FormField label={t("Name")} htmlFor="name">
           <input
