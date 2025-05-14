@@ -82,13 +82,11 @@ export default function AddContact() {
       {scannedContact && !error && (
         <>
           <PhotoView videoRef={videoRef} />
+          <Button onClick={handleSnapButton} size="large" fullWidth>
+            {t("Take photo and save")}
+          </Button>
           <ContactView contact={scannedContact} />
         </>
-      )}
-      {scannedContact && !error && (
-        <Button onClick={handleSnapButton} size="large" fullWidth>
-          {t("Take photo and save")}
-        </Button>
       )}
     </div>
   );
