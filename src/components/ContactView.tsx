@@ -12,11 +12,13 @@ export default function ContactView({ contact }: { contact: Contact }) {
         <h4>{contact.name}</h4>
 
         {contact.title ? (
-          <p className="contact-title">{contact.title}</p>
+          <p className="contact-title" style={{ textAlign: "center" }}>
+            {contact.title}
+          </p>
         ) : null}
       </div>
 
-      <div className="stack-sm">
+      <div className="stack-sm centered">
         {contact.links.filter(Boolean).map((link, i) => (
           <a
             href={link}

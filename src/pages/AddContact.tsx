@@ -67,6 +67,13 @@ export default function AddContact() {
     }
   };
 
+  const handleContinueWithoutPhoto = () => {
+    if (scannedContact) {
+      saveContact(scannedContact);
+      void navigate("/contacts?from=add");
+    }
+  };
+
   return (
     <div className="stack-md">
       <h2>{t("Add Contact")}</h2>
@@ -85,6 +92,9 @@ export default function AddContact() {
           <Button onClick={handleSnapButton} size="large" fullWidth>
             {t("Take photo and save")}
           </Button>
+          <div className="stack-sm centered">
+            <a onClick={handleContinueWithoutPhoto}>Додати контакт без фото</a>
+          </div>
           <ContactView contact={scannedContact} />
         </>
       )}

@@ -49,7 +49,7 @@ export default function Contacts() {
               >
                 <div className="contact-card">
                   <img
-                    src={contact.image}
+                    src={contact.image || "/nouserpic.webp"}
                     className="avatar small"
                     alt={contact.name}
                   />
