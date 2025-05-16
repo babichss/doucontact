@@ -21,7 +21,7 @@ function Header() {
         <img src="./logo.png" alt="logo" height={24} />
       </NavLink>
       <NavLink to="/about" aria-label={t("About")}>
-        (?)
+        ?
       </NavLink>
     </header>
   );

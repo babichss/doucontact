@@ -25,6 +25,7 @@ export default function ContactView({ contact }: { contact: Contact }) {
             target="_blank"
             rel="noopener noreferrer"
             key={`${i}:$link}`}
+            className="truncate"
           >
             {link}
           </a>

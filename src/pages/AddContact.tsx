@@ -76,7 +76,7 @@ export default function AddContact() {
 
   return (
     <div className="stack-md">
-      <h2>{t("Add Contact")}</h2>
+      <h2>{!scannedContact ? "Скануй QR" : "Новий контакт"}</h2>
       {error && <div className="error-message">{error}</div>}
       {!scannedContact && !error && (
         <>

@@ -123,11 +123,18 @@ main {
   font-family: var(--font-family);
   border: none;
   cursor: pointer;
+
+  &.small-button {
+    padding: var(--spacing-sm);
+    border-radius: .5rem;
+  }
 }
+
 
 :where(.stack-xs, .stack-sm, .stack-md, .stack-lg) {
   display: flex;
   flex-direction: column;
+  max-width: 100%;
 }
 
 .stack-xs {
@@ -253,8 +260,13 @@ dialog {
   border-radius: 1rem;
   padding: 1rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  align-self: center;
-  justify-self: center;
+  /* align-self: center;
+  justify-self: center; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
 
   .actions {
     display: flex;
@@ -262,4 +274,11 @@ dialog {
     align-items: center;
     gap: var(--spacing-sm);
   }
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }

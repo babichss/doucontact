@@ -17,6 +17,7 @@ export default function Contacts() {
 
   useEffect(() => {
     const from = new URLSearchParams(window.location.search).get("from");
+
     if (from === "add" && !getMyProfile()) {
       dialogRef.current?.showModal();
     }
