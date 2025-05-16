@@ -12,6 +12,7 @@ export default function AddContact() {
   const navigate = useNavigate();
   const location = useLocation();
   const [scannedContact, setScannedContact] = useState<Contact | null>(null);
+  const [shouldAddPhoto, setShouldAddPhoto] = useState(false);
   const [error, setError] = useState<string>("");
   const videoRef = useRef<HTMLVideoElement>(
     null
@@ -86,18 +87,30 @@ export default function AddContact() {
           </p>
         </>
       )}
-      {scannedContact && !error && (
+      {scannedContact && !error && !shouldAddPhoto && (
         <>
-          <PhotoView videoRef={videoRef} />
-          <Button onClick={handleSnapButton} size="large" fullWidth>
+          <ContactView contact={scannedContact} />
+          <Button
+            onClick={() => setShouldAddPhoto(true)}
+            size="large"
+            fullWidth
+          >
             {t("Take photo and save")}
           </Button>
           <div className="stack-sm centered">
             <a onClick={handleContinueWithoutPhoto}>Додати контакт без фото</a>
           </div>
-          <ContactView contact={scannedContact} />
         </>
       )}
+
+      {scannedContact && shouldAddPhoto ? (
+        <>
+          <PhotoView videoRef={videoRef} />
+          <Button onClick={handleSnapButton} size="large" fullWidth>
+            {t("Take photo and save")}
+          </Button>
+        </>
+      ) : null}
     </div>
   );
 }
