@@ -70,13 +70,13 @@ export default function QRScanner({ onScan }: QRScannerProps) {
   }, [onScan, stream]);
 
   return (
-    <div>
+    <>
       <CameraView
         onStream={setStream}
         facingMode="environment"
         videoRef={videoRef as React.RefObject<HTMLVideoElement>}
       />
       <canvas ref={canvasRef} style={{ display: "none" }} />
-    </div>
+    </>
   );
 }

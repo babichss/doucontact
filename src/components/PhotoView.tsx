@@ -9,9 +9,13 @@ export default function PhotoView({ videoRef }: PhotoViewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   return (
-    <div>
-      <CameraView facingMode="environment" videoRef={videoRef} />
+    <>
+      <CameraView
+        facingMode="environment"
+        videoRef={videoRef}
+        className="photo-view"
+      />
       <canvas ref={canvasRef} style={{ display: "none" }} />
-    </div>
+    </>
   );
 }

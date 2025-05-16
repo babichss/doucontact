@@ -91,15 +91,25 @@ export default function EditProfile() {
           />
         </div>
 
-        <div className="stack-xs">
-          <label htmlFor="links">{t("Contacts (up to 3)")}</label>
-          {Array.from({ length: 3 }).map((_, index) => (
-            <input
-              key={index}
-              value={profile.links[index] || ""}
-              onChange={(e) => handleLinkChange(index, e.target.value)}
-            />
-          ))}
+        <div className="stack-md">
+          <div className="stack-xs">
+            <label htmlFor="links">{t("Contacts (up to 3)")}</label>
+            <p>
+              <small>
+                Ти можеш додати будь-які свої контакти: LinkedIn, Telegram,
+                Instagram, номер телефону тощо
+              </small>
+            </p>
+          </div>
+          <div className="stack-xs">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <input
+                key={index}
+                value={profile.links[index] || ""}
+                onChange={(e) => handleLinkChange(index, e.target.value)}
+              />
+            ))}
+          </div>
         </div>
 
         {error && <div className="error-message">{t(error)}</div>}

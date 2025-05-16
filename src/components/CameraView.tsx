@@ -5,6 +5,7 @@ type CameraViewProps = {
   paused?: boolean;
   facingMode?: "user" | "environment";
   videoRef?: React.RefObject<HTMLVideoElement>;
+  className?: string;
 };
 
 export default function CameraView({
@@ -12,6 +13,7 @@ export default function CameraView({
   paused = false,
   facingMode = "environment",
   videoRef,
+  className,
 }: CameraViewProps) {
   const internalVideoRef = useRef<HTMLVideoElement>(null);
   const ref = videoRef ?? internalVideoRef;
@@ -54,19 +56,5 @@ export default function CameraView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [paused, facingMode]);
 
-  return (
-    <video
-      ref={ref}
-      autoPlay
-      playsInline
-      style={{
-        width: "100%",
-        height: "100%",
-        objectFit: "cover",
-        borderRadius: 12,
-        display: paused ? "none" : "block",
-        aspectRatio: 1,
-      }}
-    />
-  );
+  return <video ref={ref} autoPlay playsInline className={className} />;
 }
