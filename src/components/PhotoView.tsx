@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import CameraView from "./CameraView";
 
-interface PhotoViewProps {
+type PhotoViewProps = {
   videoRef: React.RefObject<HTMLVideoElement>;
-}
+};
 
 export default function PhotoView({ videoRef }: PhotoViewProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

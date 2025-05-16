@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 
-interface CameraViewProps {
+type CameraViewProps = {
   onStream?: (stream: MediaStream | null) => void;
   paused?: boolean;
   facingMode?: "user" | "environment";
   videoRef?: React.RefObject<HTMLVideoElement>;
-}
+};
 
 export default function CameraView({
   onStream,
@@ -14,15 +14,22 @@ export default function CameraView({
   videoRef,
 }: CameraViewProps) {
   const internalVideoRef = useRef<HTMLVideoElement>(null);
-  const ref = videoRef || internalVideoRef;
+  const ref = videoRef ?? internalVideoRef;
+  const streamRef = useRef<MediaStream | null>(null);
 
   useEffect(() => {
-    let stream: MediaStream | null = null;
+    let isMounted = true;
     const startCamera = async () => {
       try {
-        stream = await navigator.mediaDevices.getUserMedia({
+        const stream = await navigator.mediaDevices.getUserMedia({
           video: { facingMode },
         });
+        if (!isMounted) {
+          // If unmounted before stream is ready, stop tracks immediately
+          stream.getTracks().forEach((track) => track.stop());
+          return;
+        }
+        streamRef.current = stream;
         if (ref.current) {
           ref.current.srcObject = stream;
         }
@@ -31,11 +38,16 @@ export default function CameraView({
         onStream?.(null);
       }
     };
-    startCamera();
+    void startCamera();
 
     return () => {
-      if (stream) {
-        stream.getTracks().forEach((track) => track.stop());
+      isMounted = false;
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current = null;
+      }
+      if (ref.current) {
+        ref.current.srcObject = null;
       }
       onStream?.(null);
     };
