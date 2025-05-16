@@ -4,6 +4,12 @@ export default function About() {
   const { t } = useTranslation();
   return (
     <section className="stack-md">
+      <p>
+        <i>
+          Знайшли баг? Маєте побажання?{" "}
+          <a href="https://t.me/babich_ss">Пишіть!</a>
+        </i>
+      </p>
       <h2>{t("About")}</h2>
       <p>
         {t(
