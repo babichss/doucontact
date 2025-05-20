@@ -18,7 +18,7 @@ function Header() {
   return (
     <header>
       <NavLink to="/" aria-label={t("Home")}>
-        <img src="./logo.png" alt="logo" height={24} />
+        <h1 className="logo">Kartka</h1>
       </NavLink>
       <NavLink to="/about" aria-label={t("About")}>
         <img src="./question.svg" alt="logo" height={24} />

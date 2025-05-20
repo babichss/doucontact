@@ -61,15 +61,16 @@ header {
   background-color: var(--brand-color-primary);
 
   h1 {
-    font-size: var(--text-size-large);
-    font-weight: 600;
+    font-size: var(--text-size-xlarge);
+    font-weight: 500;
+    color: white;
   }
 }
 
 nav {
   height: 5dvh;
   display: flex;
-  
+
   a {
     flex: 1;
     text-align: center;
@@ -126,10 +127,9 @@ main {
 
   &.small-button {
     padding: var(--spacing-sm);
-    border-radius: .5rem;
+    border-radius: 0.5rem;
   }
 }
-
 
 :where(.stack-xs, .stack-sm, .stack-md, .stack-lg) {
   display: flex;
@@ -181,7 +181,6 @@ label {
     height: 50px;
   }
 }
-
 
 h2 {
   font-size: var(--text-size-xlarge);
@@ -253,7 +252,6 @@ ul {
 .contacts-list {
   padding-bottom: 80px;
 }
-
 
 dialog {
   border: none;
