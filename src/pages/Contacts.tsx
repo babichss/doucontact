@@ -54,12 +54,10 @@ export default function Contacts() {
                     className="avatar small"
                     alt={contact.name}
                   />
-                  <div className="stack-xs">
-                    <h4>{contact.name}</h4>
-                    {contact.title ? (
-                      <p className="contact-title">{contact.title}</p>
-                    ) : null}
-                  </div>
+                  <h4>{contact.name}</h4>
+                  {contact.title ? (
+                    <p className="contact-title">{contact.title}</p>
+                  ) : null}
                 </div>
               </Link>
             </Fragment>
@@ -69,14 +67,18 @@ export default function Contacts() {
 
       <dialog ref={dialogRef} className="confirm-dialog">
         <div className="stack-md">
-          <p>{t("Contact saved. Do you want to create your own profile?")}</p>
-          <div className="actions">
-            <NavLink to="/" onClick={handleCloseDialog}>
-              {t("Cancel")}
-            </NavLink>
+          <h3>Картку збережено!</h3>
+          <p>
+            Бажаєте створити власну картку? Ви можете зробити це зараз або
+            пізніше.
+          </p>
+          <div className="stack-md">
             <Button onClick={handleGoToProfile} size="small">
-              {t("Go to Profile")}
+              Створити власну картку
             </Button>
+            <NavLink to="/" onClick={handleCloseDialog}>
+              Відкласти на потім
+            </NavLink>
           </div>
         </div>
       </dialog>

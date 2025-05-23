@@ -1,6 +1,5 @@
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import Button from "../components/Button";
 import { useProfile } from "../hooks/useProfile";
@@ -35,7 +34,6 @@ function useProfileQRCode() {
 }
 
 function EmptyProfile() {
-  const { t } = useTranslation();
   return (
     <div className="stack-md centered">
       <h2>Тут поки нічого немає</h2>
@@ -43,7 +41,7 @@ function EmptyProfile() {
         Щоб створити свою картку, натисніть на кнопку нижче
       </p>
       <Button as="a" href="/edit">
-        {t("Create Profile")}
+        Створити мою Картку!
       </Button>
     </div>
   );
@@ -72,7 +70,7 @@ export default function ProfilePage() {
   return (
     <div className="stack-md">
       {encodedQrCodeString ? (
-        <>
+        <div className="stack-xs centered">
           <img
             src={encodedQrCodeString}
             alt="QR Code"
@@ -80,14 +78,23 @@ export default function ProfilePage() {
             onClick={onQrClick}
           />
           {message ? <p>{message}</p> : null}
-        </>
+          <div className="stack-md centered">
+            <NavLink to="/edit">Редагувати Картку</NavLink>
+          </div>
+        </div>
       ) : null}
-      <div className="stack-md centered">
-        <NavLink to="/edit">Редагувати Картку</NavLink>
-      </div>
 
-      <Button as="a" href="/add-contact" size="large" fullWidth>
-        Додати Картку
+      <hr />
+
+      <Button
+        as="a"
+        href="/add-contact"
+        size="large"
+        fullWidth
+        className="scan-button"
+      >
+        <img src="/qr.svg" alt="QR Code" width={24} height={24} />
+        Сканувати Картку
       </Button>
     </div>
   );

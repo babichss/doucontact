@@ -20,10 +20,7 @@ export default function AppNavigation() {
   return (
     <nav>
       <ActiveLink to="/">{t("My QR")}</ActiveLink>
-      <NavLink to="/add-contact" aria-label={t("Add Contact")}>
-        <img src="./add.svg" alt="add" height={24} />
-      </NavLink>
-      <ActiveLink to="/contacts">{t("Contacts")}</ActiveLink>
+      <ActiveLink to="/contacts">Збережені Картки</ActiveLink>
     </nav>
   );
 }

@@ -12,7 +12,7 @@ function useContactViewState({ contact, className }: ContactViewProps) {
     title: contact.title,
     image: contact.image,
     links: contact.links.filter(Boolean),
-    className: [className, "stack-md centered"].join(" "),
+    className: [className, "stack-md centered contact-view"].join(" "),
   };
 }
 
