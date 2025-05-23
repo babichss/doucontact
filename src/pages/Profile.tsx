@@ -70,21 +70,19 @@ export default function ProfilePage() {
   return (
     <div className="stack-md">
       {encodedQrCodeString ? (
-        <div className="stack-xs centered">
+        <div className="stack-xs">
           <img
             src={encodedQrCodeString}
             alt="QR Code"
             className="qr-code"
             onClick={onQrClick}
+            width="100%"
           />
           {message ? <p>{message}</p> : null}
-          <div className="stack-md centered">
-            <NavLink to="/edit">Редагувати Картку</NavLink>
-          </div>
+
+          <NavLink to="/edit">Редагувати мою Картку</NavLink>
         </div>
       ) : null}
-
-      <hr />
 
       <Button
         as="a"
@@ -94,7 +92,7 @@ export default function ProfilePage() {
         className="scan-button"
       >
         <img src="/qr.svg" alt="QR Code" width={24} height={24} />
-        Сканувати Картку
+        Сканувати
       </Button>
     </div>
   );

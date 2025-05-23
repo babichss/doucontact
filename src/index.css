@@ -62,6 +62,7 @@ header {
 :where(.stack-xs, .stack-sm, .stack-md, .stack-lg, .stack-xl) {
   display: flex;
   flex-direction: column;
+  max-width: 100%;
 
   &.centered {
     align-items: center;
@@ -133,6 +134,13 @@ a {
   text-underline-offset: 4px;
   color: var(--accent-color);
 }
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
 /*  */
 nav {
   height: calc(var(--spacing-lg) * 2);
@@ -196,7 +204,6 @@ input {
 }
 
 .scan-button {
-  place-self: center;
   padding: var(--spacing-lg);
   font-size: var(--font-size-lg);
 }
@@ -305,4 +312,12 @@ dialog {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   width: fit-content;
   min-width: 90vw;
+}
+
+/*  */
+.qr-code {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+  border-radius: var(--spacing-sm);
 }
