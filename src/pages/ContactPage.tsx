@@ -56,16 +56,12 @@ export default function ContactPage() {
       <dialog ref={dialogRef} className="confirm-dialog">
         <div className="stack-md">
           <p>{t("Are you sure you want to delete this contact?")}</p>
-          <div className="actions">
+          <div className="h-stack-md centered actions">
+            <a onClick={handleDialogClose} className="secondary">
+              {t("Cancel")}
+            </a>
             <Button onClick={handleDialogConfirm} size="medium">
               {t("Yes")}
-            </Button>
-            <Button
-              onClick={handleDialogClose}
-              size="medium"
-              className="secondary"
-            >
-              {t("Cancel")}
             </Button>
           </div>
         </div>

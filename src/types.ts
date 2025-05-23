@@ -4,5 +4,6 @@ export type Contact = {
   title: string;
   image: string;
   links: string[];
+  note?: string;
 }
 

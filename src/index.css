@@ -63,7 +63,7 @@ header {
   display: flex;
   flex-direction: column;
   max-width: 100%;
-
+  place-self: stretch;
   &.centered {
     align-items: center;
   }
@@ -179,11 +179,13 @@ label {
   font-weight: 600;
 }
 
-input {
-  border: 1px solid var(--accent-color-dimmed);
+:where(input, textarea) {
+  font-family: var(--font-family-primary);
+  border: 1px solid var(--accent-color);
   border-radius: var(--spacing-xs);
   padding: var(--spacing-sm);
   font-size: var(--font-size-md);
+  place-self: stretch;
 }
 
 :is(button, .button) {
@@ -287,6 +289,7 @@ header {
   text-align: center;
   align-items: center;
 }
+
 /*  */
 .partners-list {
   display: grid;
@@ -320,4 +323,12 @@ dialog {
   aspect-ratio: 1 / 1;
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
   border-radius: var(--spacing-sm);
+}
+
+/*  */
+.actions {
+  justify-content: end;
+  & > * {
+    flex-grow: 0;
+  }
 }
