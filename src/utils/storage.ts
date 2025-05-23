@@ -1,8 +1,8 @@
 import type { Contact } from '../types';
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
 
-const MY_PROFILE_KEY = 'myProfile';
-const SAVED_CONTACTS_KEY = 'savedContacts';
+export const MY_PROFILE_KEY = 'myProfile';
+export const SAVED_CONTACTS_KEY = 'savedContacts';
 
 export const getMyProfile = (): Contact | null => {
   const profile = localStorage.getItem(MY_PROFILE_KEY);

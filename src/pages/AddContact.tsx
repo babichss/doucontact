@@ -77,28 +77,21 @@ export default function AddContact() {
 
   return (
     <div className="stack-md">
-      <h2>{!scannedContact ? "Скануй QR" : "Новий контакт"}</h2>
+      <h2>{!scannedContact ? "1. Скануй QR" : "2. Додай фото"}</h2>
       {error && <div className="error-message">{error}</div>}
-      {!scannedContact && !error && (
-        <>
-          <QRScanner onScan={handleScan} />
-          <p>
-            <i>{t("Scan QR code")}</i>
-          </p>
-        </>
-      )}
+      {!scannedContact && !error && <QRScanner onScan={handleScan} />}
       {scannedContact && !error && !shouldAddPhoto && (
         <>
           <ContactView contact={scannedContact} />
-          <Button
-            onClick={() => setShouldAddPhoto(true)}
-            size="large"
-            fullWidth
-          >
-            {t("Take photo and save")}
-          </Button>
-          <div className="stack-sm centered">
-            <a onClick={handleContinueWithoutPhoto}>Додати контакт без фото</a>
+          <div className="h-stack-sm centered">
+            <a onClick={handleContinueWithoutPhoto}>Зберегти без фото</a>
+            <Button
+              onClick={() => setShouldAddPhoto(true)}
+              size="large"
+              fullWidth
+            >
+              Додати фото
+            </Button>
           </div>
         </>
       )}

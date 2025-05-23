@@ -19,7 +19,7 @@ export default function ContactPage() {
     if (foundContact) {
       setContact(foundContact);
     } else {
-      navigate("/contacts");
+      void navigate("/contacts");
     }
   }, [id, navigate]);
 
@@ -34,7 +34,7 @@ export default function ContactPage() {
   const handleDialogConfirm = () => {
     if (contact) {
       deleteContact(contact.id);
-      navigate("/contacts");
+      void navigate("/contacts");
     }
     dialogRef.current?.close();
   };

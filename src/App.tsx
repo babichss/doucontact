@@ -1,24 +1,20 @@
-import {
-  NavLink,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { NavLink, Route, Routes } from "react-router-dom";
+import AppLayout from "./AppLayout";
+import About from "./pages/About";
 import AddContact from "./pages/AddContact";
 import ContactPage from "./pages/ContactPage";
 import Contacts from "./pages/Contacts";
 import EditProfile from "./pages/EditProfile";
-import Profile from "./pages/Profile";
-import About from "./pages/About";
-import { useTranslation } from "react-i18next";
+import ProfilePage from "./pages/Profile";
 
 function Header() {
   const { t } = useTranslation();
 
   return (
     <header>
-      <NavLink to="/" aria-label={t("Home")}>
-        <h1 className="logo">Kartka</h1>
+      <NavLink to="/" aria-label={t("Home")} className="logo">
+        <h1>Kartka</h1>
       </NavLink>
       <NavLink to="/about" aria-label={t("About")}>
         <img src="./question.svg" alt="logo" height={24} />
@@ -27,39 +23,13 @@ function Header() {
   );
 }
 
-function ActiveLink({
-  to,
-  children,
-}: {
-  to: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <NavLink to={to} className={({ isActive }) => (isActive ? "active" : "")}>
-      {children}
-    </NavLink>
-  );
-}
-
-function Nav() {
-  const { t } = useTranslation();
-
-  return (
-    <nav>
-      <ActiveLink to="/">{t("My QR")}</ActiveLink>
-      <ActiveLink to="/contacts">{t("Contacts")}</ActiveLink>
-    </nav>
-  );
-}
-
 function App() {
   return (
-    <Router>
+    <AppLayout>
       <Header />
-      <Nav />
       <main>
         <Routes>
-          <Route path="/" element={<Profile />} />
+          <Route path="/" element={<ProfilePage />} />
           <Route path="/edit" element={<EditProfile />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/contact/:id" element={<ContactPage />} />
@@ -67,7 +37,7 @@ function App() {
           <Route path="/about" element={<About />} />
         </Routes>
       </main>
-    </Router>
+    </AppLayout>
   );
 }
 

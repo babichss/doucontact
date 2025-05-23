@@ -1,52 +1,66 @@
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import Button from "../components/Button";
-import Card from "../components/Card";
-import type { Contact } from "../types";
+import { useProfile } from "../hooks/useProfile";
 import { base64Encode } from "../utils/storage";
 
-export default function Profile() {
-  const { t } = useTranslation();
-  const [profile] = useState<Contact | null>(() => {
-    const p = localStorage.getItem("myProfile");
-    return p ? (JSON.parse(p) as Contact) : null;
-  });
-  const [qrCode, setQrCode] = useState<string>("");
-  const [qrUrl, setQrUrl] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
+function useProfileQRCode() {
+  const [status, setStatus] = useState<"loading" | "error" | "success">(
+    "loading"
+  );
+  const [encodedQrCodeString, setEncodedQrCodeString] = useState<string>("");
+  const { profile } = useProfile();
 
   useEffect(() => {
-    if (profile) {
-      const profileData = base64Encode(JSON.stringify(profile));
-      const baseUrl = window.location.origin;
-      const qrUrl = `${baseUrl}/add-contact?contact=${profileData}`;
-      setQrUrl(qrUrl);
-      QRCode.toDataURL(qrUrl, {
-        margin: 0,
+    if (!profile) return;
+    const baseUrl = window.location.origin;
+    const encodedProfile = base64Encode(JSON.stringify(profile));
+
+    QRCode.toDataURL(`${baseUrl}/add-contact?contact=${encodedProfile}`, {
+      margin: 4,
+    })
+      .then((url) => {
+        setEncodedQrCodeString(url);
+        setStatus("success");
       })
-        .then((url) => {
-          setQrCode(url);
-        })
-        .catch((err) => console.error("Error generating QR code:", err));
-    }
+      .catch((err) => {
+        console.error("Error generating QR code:", err);
+        setStatus("error");
+      });
   }, [profile]);
 
-  if (!profile) {
-    return (
-      <div className="stack-md centered">
-        <h2>{t("Welcome!")}</h2>
-        <p>{t("You haven't created your profile yet.")}</p>
-        <Button as="a" href="/edit">
-          {t("Create Profile")}
-        </Button>
-      </div>
-    );
+  return { encodedQrCodeString, status };
+}
+
+function EmptyProfile() {
+  return (
+    <div className="stack-md centered">
+      <h2>Тут поки нічого немає</h2>
+      <p className="centered">
+        Щоб створити свою картку, натисніть на кнопку нижче
+      </p>
+      <Button as="a" href="/edit">
+        Створити мою Картку!
+      </Button>
+    </div>
+  );
+}
+export default function ProfilePage() {
+  const { profile, error } = useProfile();
+
+  const [message, setMessage] = useState<string>("");
+
+  const { encodedQrCodeString, status } = useProfileQRCode();
+
+  const hasError = error !== null || status === "error";
+
+  if (!profile && !hasError) {
+    return <EmptyProfile />;
   }
 
   const onQrClick = () => {
-    void navigator.clipboard.writeText(qrUrl);
+    void navigator.clipboard.writeText(encodedQrCodeString);
     setMessage("Посилання скопійовано!");
     setTimeout(() => {
       setMessage("");
@@ -55,27 +69,32 @@ export default function Profile() {
 
   return (
     <div className="stack-md">
-      <Card className="stack-md centered">
-        {qrCode ? (
-          <>
-            <img
-              src={qrCode}
-              alt="QR Code"
-              className="qr-code"
-              onClick={onQrClick}
-            />
-            {message ? <p>{message}</p> : null}
-          </>
-        ) : (
-          <p>{t("Generating QR Code...")}</p>
-        )}
-        <div className="stack-md centered">
-          <NavLink to="/edit">{t("Edit Profile")}</NavLink>
+      {encodedQrCodeString ? (
+        <div className="stack-xs centered">
+          <img
+            src={encodedQrCodeString}
+            alt="QR Code"
+            className="qr-code"
+            onClick={onQrClick}
+          />
+          {message ? <p>{message}</p> : null}
+          <div className="stack-md centered">
+            <NavLink to="/edit">Редагувати Картку</NavLink>
+          </div>
         </div>
-      </Card>
+      ) : null}
 
-      <Button as="a" href="/add-contact" size="large" fullWidth>
-        {t("Scan QR")}
+      <hr />
+
+      <Button
+        as="a"
+        href="/add-contact"
+        size="large"
+        fullWidth
+        className="scan-button"
+      >
+        <img src="/qr.svg" alt="QR Code" width={24} height={24} />
+        Сканувати Картку
       </Button>
     </div>
   );

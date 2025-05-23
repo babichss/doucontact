@@ -106,6 +106,7 @@ export default function EditProfile() {
               <input
                 key={index}
                 value={profile.links[index] || ""}
+                name="contact"
                 onChange={(e) => handleLinkChange(index, e.target.value)}
               />
             ))}
